@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthorProfile {
+  id        Int      @id @default(autoincrement())
+  name      String
+  tagline   String?
+  shortBio  String?
+  longBio   String?
+  photoUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Book {
+  id              Int         @id @default(autoincrement())
+  title           String
+  subtitle        String?
+  slug            String      @unique
+  shortBlurb      String?
+  longDescription String?
+  themes          String?
+  whoItIsFor      String?
+  seoKeywords     String?
+  coverImageUrl   String?
+  language        String      @default("en")
+  status          BookStatus  @default(DRAFT)
+  releaseDate     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  retailerLinks   BookRetailerLink[]
+}
+
+model BookRetailerLink {
+  id                  Int      @id @default(autoincrement())
+  book                Book     @relation(fields: [bookId], references: [id])
+  bookId              Int
+  retailerName        String
+  label               String
+  productUrl          String
+  active              Boolean  @default(true)
+  sortOrder           Int      @default(0)
+  isPreorder          Boolean  @default(false)
+  preorderReleaseDate DateTime?
+}
+
+model Article {
+  id            Int           @id @default(autoincrement())
+  title         String
+  slug          String        @unique
+  content       String
+  tags          String?
+  coverImageUrl String?
+  galleryImages String?
+  videoUrl      String?
+  language      String        @default("en")
+  status        ArticleStatus @default(DRAFT)
+  publishedAt   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Event {
+  id            Int         @id @default(autoincrement())
+  title         String
+  slug          String      @unique
+  type          EventType
+  dateTime      DateTime
+  location      String?
+  url           String?
+  description   String?
+  registrationUrl String?
+  status        EventStatus @default(DRAFT)
+  mainImageUrl  String?
+  promoVideoUrl String?
+  galleryImages String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model MediaItem {
+  id            Int          @id @default(autoincrement())
+  title         String
+  slug          String       @unique
+  description   String?
+  type          MediaType
+  fileUrl       String?
+  externalUrl   String?
+  coverImageUrl String?
+  status        MediaStatus  @default(DRAFT)
+  isFree        Boolean      @default(true)
+  language      String       @default("en")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String
+  tags      String?
+  source    String?
+  createdAt DateTime @default(now())
+}
+
+model EmailSubscriber {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  name           String?
+  subscribed     Boolean  @default(true)
+  unsubscribedAt DateTime?
+  source         String?
+  createdAt      DateTime @default(now())
+}
+
+enum BookStatus {
+  DRAFT
+  COMING_SOON
+  PUBLISHED
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum EventStatus {
+  DRAFT
+  UPCOMING
+  PAST
+}
+
+enum EventType {
+  ONLINE
+  IN_PERSON
+}
+
+enum MediaType {
+  MUSIC
+  GUIDED_AUDIO
+  VIDEO
+  PDF_GUIDE
+  OTHER
+}
+
+enum MediaStatus {
+  DRAFT
+  PUBLISHED
+}
