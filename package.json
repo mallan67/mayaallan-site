@@ -6,11 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:generate": "prisma generate",
-    "postinstall": "prisma generate",
-    "seed": "ts-node ./prisma/seed.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
