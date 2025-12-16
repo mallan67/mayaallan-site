@@ -1,4 +1,3 @@
-cat > src/db/schema.ts <<'EOF'
 import {
   pgTable,
   serial,
