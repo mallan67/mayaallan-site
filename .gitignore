@@ -1,24 +1,8 @@
-# env
 .env
-.env.*   # allow .env.example to be tracked if you want
-
-# dependencies
-node_modules/
-
-# next.js
-.next/
-out/
-
-# vercel
-.vercel/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# misc
-.DS_Store
-
+.env.*
 !.env.example
+
+node_modules/
+.next/
+.vercel/
+.DS_Store
