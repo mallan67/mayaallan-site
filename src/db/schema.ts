@@ -211,4 +211,3 @@ export const siteSettings = pgTable("site_settings", {
 
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
-EOF
