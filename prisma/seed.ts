@@ -6,17 +6,30 @@ const prisma = new PrismaClient();
 async function main() {
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
-  if (!email || !password) throw new Error("Missing ADMIN_EMAIL or ADMIN_PASSWORD");
+
+  if (!email || !password) {
+    throw new Error("Missing ADMIN_EMAIL or ADMIN_PASSWORD in .env");
+  }
 
   const passwordHash = await bcrypt.hash(password, 12);
 
   await prisma.adminUser.upsert({
     where: { email },
-    update: { passwordHash },
-    create: { email, passwordHash },
+    update: {},
+    create: {
+      email,
+      passwordHash,
+    },
   });
 
-  console.log("✅ Admin upserted:", email);
+  console.log("✅ Admin user seeded:", email);
 }
 
-main().finally(async () => prisma.$disconnect());
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
