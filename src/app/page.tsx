@@ -16,7 +16,7 @@ type MainBook = {
 // For now this is static. Later you can replace this with a Prisma call
 // to fetch the main book from the database.
 const mainBook: MainBook = {
-  title: "Guide to Psilocybin Integration",
+  title: "Psilocybin Integration Guide",
   subtitle: "40 Real Scenarios for Navigating What You See, Feel & Experience",
   author: "MAYA ALLAN",
   taglineLines: [
