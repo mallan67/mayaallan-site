@@ -1,3 +1,4 @@
+cat > drizzle.config.ts <<'EOF'
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
@@ -8,3 +9,4 @@ export default defineConfig({
     url: process.env.DATABASE_URL!,
   },
 });
+EOF
