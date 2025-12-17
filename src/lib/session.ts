@@ -1,7 +1,7 @@
 import { getIronSession, IronSession } from "iron-session";
 import { cookies } from "next/headers";
 
-export type AdminSession = IronSession<{ adminId?: string }>;
+export type AdminSession = IronSession<{ adminId?: number }>;
 
 export const sessionOptions = {
   password: process.env.SESSION_SECRET as string,
