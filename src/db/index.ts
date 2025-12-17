@@ -1,17 +1,13 @@
-mkdir -p src/db
-
-cat > src/db/index.ts <<'EOF'
-import "server-only";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) throw new Error("Missing DATABASE_URL");
+const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
 
-export const sql = postgres(connectionString, {
-  max: 1,
-  ssl: "require",
-});
+if (!connectionString) {
+  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
+}
 
-export const db = drizzle(sql);
-EOF
+// Serverless-safe config
+const client = postgres(connectionString, { prepare: false });
+
+export const db = drizzle(client);
