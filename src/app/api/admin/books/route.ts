@@ -19,7 +19,7 @@ const BookPayload = z.object({
   allowDirectSale: z.boolean().optional(),
   isPublished: z.boolean().optional(),
   isComingSoon: z.boolean().optional(),
-  salesMetadata: z.record(z.any()).optional(),
+  salesMetadata: z.record(z.string(), z.any()).optional(),
 });
 
 export async function GET() {
