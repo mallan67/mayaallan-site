@@ -1,8 +1,16 @@
+// src/app/api/admin/logout/route.ts
 import { NextResponse } from "next/server";
-import { getAdminSession } from "@/lib/session";
 
 export async function POST() {
-  const session = await getAdminSession();
-  session.destroy();
-  return NextResponse.json({ ok: true });
+  const res = NextResponse.json({ ok: true });
+  res.cookies.set({
+    name: "admin_token",
+    value: "",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
+  });
+  return res;
 }
