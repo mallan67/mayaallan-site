@@ -12,10 +12,6 @@ Run all SQL migrations:
 Create (or update) a single admin user:
 
 
-## Create Admin
-Create (or update) a single admin user:
-
-
 ## Notes
 - The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
 - Make sure `ADMIN_JWT_SECRET` is set in Vercel for sessions.
