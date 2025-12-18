@@ -1,26 +1,22 @@
 // src/lib/adminAuth.ts
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
+import { getAdminSession } from "./session";
+import { redirect } from "next/navigation";
 
-export function getAdminFromRequest() {
-  try {
-    const cookie = cookies().get("admin_token")?.value;
-    if (!cookie) return null;
-    const secret = process.env.ADMIN_JWT_SECRET;
-    if (!secret) {
-      console.error("ADMIN_JWT_SECRET not set");
-      return null;
-    }
-    const payload = jwt.verify(cookie, secret) as { sub: string; email: string; iat?: number; exp?: number };
-    return payload;
-  } catch (err) {
-    return null;
+/** Use in API route to short-circuit unauthorized requests */
+export async function requireAdminApi() {
+  const session = await getAdminSession();
+  if (!session?.adminId) {
+    return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
   }
+  return null; // ok to continue
 }
 
-export function requireAdminOrThrow() {
-  const admin = getAdminFromRequest();
-  if (!admin) throw new Error("Unauthorized");
-  return admin;
+/** Use in server components / server pages to redirect non-admins to login */
+export async function requireAdminPage() {
+  const session = await getAdminSession();
+  if (!session?.adminId) {
+    redirect("/admin/login");
+  }
+  return session;
 }
-
