@@ -38,6 +38,10 @@
   "exclude": [
     "node_modules",
     "prisma",
-    "_disabled"
+    "_disabled",
+    "archive/**",
+    "_disabled/**",
+    ".next/**",
+    "cleanup-backup-*"
   ]
 }
