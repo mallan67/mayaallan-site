@@ -1,3 +1,12 @@
+## NOTE — Drizzle ORM (Prisma removed)
+
+This project no longer uses Prisma. It has migrated (or will migrate) to **Drizzle ORM**.
+If you previously relied on Prisma artifact files or scripts, they were moved to `_disabled/` to keep the historical code but keep the main build clean.
+
+**Why:** The project now uses Drizzle ORM and the Prisma helpers were causing build-time TypeScript errors.
+
+---
+
 # Maya Allan Author Site (Skeleton with Prisma)
 
 This is a Next.js App Router project for the author site "Guide to Psilocybin Integration".
