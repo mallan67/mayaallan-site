@@ -35,4 +35,3 @@ if (connectionString) {
 }
 
 export const clientExport = client;
-export { db };
