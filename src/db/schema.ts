@@ -11,7 +11,7 @@ import {
   text,
   integer,
   boolean,
-  timestamptz,
+  timestamp,
   jsonb,
 } from "drizzle-orm/pg-core";
 
@@ -22,9 +22,9 @@ export const adminUser = pgTable("admin_user", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 256 }).notNull(),
-  displayName: varchar("display_name", { length: 200 }).default(null),
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  displayName: varchar("display_name", { length: 200 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
   isActive: boolean("is_active").default(true).notNull(),
 });
 
@@ -35,9 +35,9 @@ export const retailer = pgTable("retailer", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 200 }).notNull(),
   kind: varchar("kind", { length: 100 }).notNull(), // 'amazon', 'lulu', 'google', ...
-  logoUrl: varchar("logo_url", { length: 1000 }).default(null),
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  logoUrl: varchar("logo_url", { length: 1000 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 /**
@@ -46,20 +46,20 @@ export const retailer = pgTable("retailer", {
 export const book = pgTable("book", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
-  subtitle1: varchar("subtitle1", { length: 500 }).default(null),
-  subtitle2: varchar("subtitle2", { length: 500 }).default(null),
+  subtitle1: varchar("subtitle1", { length: 500 }),
+  subtitle2: varchar("subtitle2", { length: 500 }),
   tags: jsonb("tags").default(sql`'[]'::jsonb`).notNull(), // array of keywords/objects
-  isbn: varchar("isbn", { length: 50 }).default(null),
-  shortDescription: text("short_description").default(null),
-  longDescription: text("long_description").default(null),
-  coverImageUrl: varchar("cover_image_url", { length: 1000 }).default(null),
-  backCoverImageUrl: varchar("back_cover_image_url", { length: 1000 }).default(null),
+  isbn: varchar("isbn", { length: 50 }),
+  shortDescription: text("short_description"),
+  longDescription: text("long_description"),
+  coverImageUrl: varchar("cover_image_url", { length: 1000 }),
+  backCoverImageUrl: varchar("back_cover_image_url", { length: 1000 }),
   allowDirectSale: boolean("allow_direct_sale").default(false).notNull(),
   isPublished: boolean("is_published").default(false).notNull(),
   isComingSoon: boolean("is_coming_soon").default(false).notNull(),
   salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 /**
@@ -72,8 +72,8 @@ export const bookRetailer = pgTable("book_retailer_link", {
   url: varchar("url", { length: 2000 }).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
   types: jsonb("types").default(sql`'[]'::jsonb`).notNull(), // which formats: ["ebook","paperback","hardcover"]
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 /**
@@ -82,15 +82,15 @@ export const bookRetailer = pgTable("book_retailer_link", {
 export const mediaItem = pgTable("media_item", {
   id: serial("id").primaryKey(),
   kind: varchar("kind", { length: 20 }).notNull(), // 'audio' | 'video'
-  title: varchar("title", { length: 500 }).default(null),
-  description: text("description").default(null),
-  coverImageUrl: varchar("cover_image_url", { length: 1000 }).default(null),
-  isbn: varchar("isbn", { length: 50 }).default(null),
-  storageUrl: varchar("storage_url", { length: 2000 }).default(null), // S3 / R2 key or CDN URL
-  externalUrl: varchar("external_url", { length: 2000 }).default(null), // YouTube/Vimeo
+  title: varchar("title", { length: 500 }),
+  description: text("description"),
+  coverImageUrl: varchar("cover_image_url", { length: 1000 }),
+  isbn: varchar("isbn", { length: 50 }),
+  storageUrl: varchar("storage_url", { length: 2000 }), // S3 / R2 key or CDN URL
+  externalUrl: varchar("external_url", { length: 2000 }), // YouTube/Vimeo
   isPublished: boolean("is_published").default(false).notNull(),
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 /**
@@ -99,13 +99,13 @@ export const mediaItem = pgTable("media_item", {
 export const event = pgTable("event", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
-  description: text("description").default(null),
-  startAt: timestamptz("start_at").notNull(),
-  endAt: timestamptz("end_at").default(null),
-  location: text("location").default(null),
+  description: text("description"),
+  startAt: timestamp("start_at").notNull(),
+  endAt: timestamp("end_at"),
+  location: text("location"),
   isPublished: boolean("is_published").default(false).notNull(),
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 /**
@@ -113,11 +113,11 @@ export const event = pgTable("event", {
  */
 export const contactSubmission = pgTable("contact_submission", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 200 }).default(null),
+  name: varchar("name", { length: 200 }),
   email: varchar("email", { length: 320 }).notNull(),
-  message: text("message").default(null),
-  source: varchar("source", { length: 200 }).default(null),
-  createdAt: timestamptz("created_at").defaultNow().notNull(),
+  message: text("message"),
+  source: varchar("source", { length: 200 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 /**
@@ -126,7 +126,7 @@ export const contactSubmission = pgTable("contact_submission", {
 export const emailSubscriber = pgTable("email_subscriber", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
-  subscribedAt: timestamptz("subscribed_at").defaultNow().notNull(),
+  subscribedAt: timestamp("subscribed_at").defaultNow().notNull(),
   isActive: boolean("is_active").default(true).notNull(),
 });
 
@@ -137,5 +137,5 @@ export const siteSettings = pgTable("site_settings", {
   id: serial("id").primaryKey(),
   key: varchar("key", { length: 200 }).notNull().unique(),
   value: jsonb("value").notNull(),
-  updatedAt: timestamptz("updated_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
