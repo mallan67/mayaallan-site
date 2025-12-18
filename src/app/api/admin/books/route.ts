@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   };
 
   if (p.id) {
-    await db.update(book).set(values).where(book.id.eq(p.id));
+    await db.update(book).set(values).where(eq(book.id, p.id));
     return NextResponse.json({ ok: true });
   } else {
     const inserted = await db.insert(book).values(values).returning();
