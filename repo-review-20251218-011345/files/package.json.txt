@@ -1,0 +1,8 @@
+FILE: package.json
+----------------------
+application/json
+
+NULL_BYTES: yes
+CONTROL_CHARS: no
+CRLF: no
+TRAILING_WS: none

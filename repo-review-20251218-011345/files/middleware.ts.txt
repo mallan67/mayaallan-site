@@ -1,0 +1,8 @@
+FILE: middleware.ts
+----------------------
+application/javascript
+
+NULL_BYTES: yes
+CONTROL_CHARS: no
+CRLF: no
+TRAILING_WS: none

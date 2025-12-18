@@ -1,0 +1,8 @@
+FILE: drizzle.config.ts
+----------------------
+application/javascript
+
+NULL_BYTES: yes
+CONTROL_CHARS: no
+CRLF: no
+TRAILING_WS: none

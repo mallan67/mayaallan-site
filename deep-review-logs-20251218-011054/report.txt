@@ -1,0 +1,25 @@
+Step 0: Git fetch & prune
+
+Step 1: Branch listing
+--- Local branches (git branch -vv) ---
+--- Remote branches (git branch -r) ---
+
+Checking for leftover branches (chore/remove-prisma, cleanup/final-prisma-*, any branch containing prisma):
+  -> none found matching those patterns
+
+Step 2: Working tree and index
+-- git status --porcelain --untracked-files=all --branch --ignored
+  -> Working tree has changes or untracked files. Please review ./deep-review-logs-20251218-011054/git-status-porcelain.log
+
+Step 3: Searching for Prisma / @prisma/client / PrismaClient occurrences
+Pattern '@prisma/client' matches: 3 -> ./deep-review-logs-20251218-011054/grep-_prisma_client.log
+Pattern 'PrismaClient' matches: 2 -> ./deep-review-logs-20251218-011054/grep-PrismaClient.log
+Pattern 'prisma\.' matches: 0 -> ./deep-review-logs-20251218-011054/grep-prisma__.log
+Pattern '"prisma"' matches: 2 -> ./deep-review-logs-20251218-011054/grep-_prisma_.log
+Total Prisma-like matches: 7
+
+Step 4: Inspect package.json & package-lock.json for prisma deps
+  -> package.json shows no Prisma deps.
+  -> package-lock.json contains Prisma entries. See ./deep-review-logs-20251218-011054/package-lock-prisma.log
+
+Step 5: Validate tsconfig.json exclude

@@ -1,0 +1,6 @@
+archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts(7,8): error TS1005: ',' expected.
+archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts(7,11): error TS1181: Array element destructuring pattern expected.
+archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts(7,26): error TS1005: ';' expected.
+archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts(7,27): error TS1128: Declaration or statement expected.
+archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts(8,3): error TS1128: Declaration or statement expected.
+archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts(8,4): error TS1128: Declaration or statement expected.
