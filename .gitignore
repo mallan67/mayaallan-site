@@ -14,3 +14,8 @@ tsconfig.tsbuildinfo
 backup_debug.log
 drizzle/*.bak
 src/db/schema.ts.bak*
+# local DB backups and debug logs
+/backups/
+backup_debug.log
+drizzle/*.bak
+src/db/schema.ts.bak*
