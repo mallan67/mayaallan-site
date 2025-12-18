@@ -7,3 +7,10 @@ node_modules/
 .vercel/
 .DS_Store
 tsconfig.tsbuildinfo
+.vercel
+.env*.local
+# DB backups and debug
+/backups/
+backup_debug.log
+drizzle/*.bak
+src/db/schema.ts.bak*
