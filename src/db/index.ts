@@ -1,44 +1,39 @@
-/**
- * Safe lazy DB initializer.
- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
- * are missing, because Next.js build may import modules during the build.
- *
- * Export `getDb()` that returns the Drizzle DB instance or null if not configured.
- * Callers should handle null (return 500 / friendly message) in runtime handlers.
- */
-
-import { drizzle } from "drizzle-orm/node-postgres";
+// Guarded DB client for server builds.
+// Exports `db` (named export) and `clientExport`.
+// If DATABASE_URL/POSTGRES_URL is missing, `db` is a dummy proxy that throws at runtime when used.
+import "server-only";
+import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-function getConnectionString(): string | null {
-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+
+let client: any = undefined;
+let _db: any = undefined;
+
+if (connectionString) {
+  client = postgres(connectionString, { prepare: false });
+  _db = drizzle(client);
+} else {
+  _db = new Proxy(
+    {},
+    {
+      get(_target, prop) {
+        if (prop === "__is_dummy_db") return true;
+        throw new Error(
+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+            prop
+          )}').`
+        );
+      },
+      apply() {
+        throw new Error(
+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+        );
+      },
+    }
+  ) as any;
 }
 
-let _db: ReturnType<typeof drizzle> | null = null;
-let _sql: any = null;
-
-export function initDbIfNeeded() {
-  if (_db) return _db;
-  const conn = getConnectionString();
-  if (!conn) {
-    // Do NOT throw on import/build — warn and return null.
-    // Any runtime handler calling DB should check and return an error response.
-    // This avoids build-time failures when DB env is not present.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
-    );
-    return null;
-  }
-
-  // require lazily to avoid top-level build-time dependency resolution
-  _sql = postgres(conn, {
-    ssl: { rejectUnauthorized: false },
-  });
-  _db = drizzle(_sql);
-  return _db;
-}
-
-export function getDb() {
-  return initDbIfNeeded();
-}
+// named exports required by app code
+export const db = _db;
+export const clientExport = client;
