@@ -48,16 +48,22 @@ export const book = pgTable("book", {
   title: varchar("title", { length: 500 }).notNull(),
   subtitle1: varchar("subtitle1", { length: 500 }),
   subtitle2: varchar("subtitle2", { length: 500 }),
-  tags: jsonb("tags").default(sql`'[]'::jsonb`).notNull(), // array of keywords/objects
+  tags: jsonb("tags").default(sql\`'[]'::jsonb\`).notNull(),
   isbn: varchar("isbn", { length: 50 }),
+  copyright: varchar("copyright", { length: 1000 }),
   shortDescription: text("short_description"),
   longDescription: text("long_description"),
   coverImageUrl: varchar("cover_image_url", { length: 1000 }),
   backCoverImageUrl: varchar("back_cover_image_url", { length: 1000 }),
   allowDirectSale: boolean("allow_direct_sale").default(false).notNull(),
+  stripeEnabled: boolean("stripe_enabled").default(false).notNull(),
+  stripeProductId: varchar("stripe_product_id", { length: 255 }),
+  paypalEnabled: boolean("paypal_enabled").default(false).notNull(),
+  paypalProductId: varchar("paypal_product_id", { length: 255 }),
   isPublished: boolean("is_published").default(false).notNull(),
   isComingSoon: boolean("is_coming_soon").default(false).notNull(),
-  salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
+  salesMetadata: jsonb("sales_metadata").default(sql\`'{}'::jsonb\`).notNull(),
+  seo: jsonb("seo").default(sql\`'{}'::jsonb\`).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -67,27 +73,30 @@ export const book = pgTable("book", {
  */
 export const bookRetailer = pgTable("book_retailer_link", {
   id: serial("id").primaryKey(),
-  bookId: integer("book_id").notNull(),
-  retailerId: integer("retailer_id").notNull(),
+  bookId: integer("book_id").notNull().references(() => book.id),
+  retailerId: integer("retailer_id").notNull().references(() => retailer.id),
   url: varchar("url", { length: 2000 }).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
-  types: jsonb("types").default(sql`'[]'::jsonb`).notNull(), // which formats: ["ebook","paperback","hardcover"]
+  types: jsonb("types").default(sql\`'[]'::jsonb\`).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+// NOTE: add UNIQUE(book_id, retailer_id) in a migration
 
 /**
  * Media items (audio/video)
  */
 export const mediaItem = pgTable("media_item", {
   id: serial("id").primaryKey(),
-  kind: varchar("kind", { length: 20 }).notNull(), // 'audio' | 'video'
+  kind: varchar("kind", { length: 20 }).notNull(),
   title: varchar("title", { length: 500 }),
   description: text("description"),
   coverImageUrl: varchar("cover_image_url", { length: 1000 }),
   isbn: varchar("isbn", { length: 50 }),
-  storageUrl: varchar("storage_url", { length: 2000 }), // S3 / R2 key or CDN URL
-  externalUrl: varchar("external_url", { length: 2000 }), // YouTube/Vimeo
+  storageUrl: varchar("storage_url", { length: 2000 }),
+  externalUrl: varchar("external_url", { length: 2000 }),
+  durationSeconds: integer("duration_seconds"),
+  mimeType: varchar("mime_type", { length: 200 }),
   isPublished: boolean("is_published").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -103,6 +112,8 @@ export const event = pgTable("event", {
   startAt: timestamp("start_at").notNull(),
   endAt: timestamp("end_at"),
   location: text("location"),
+  url: varchar("url", { length: 2000 }),
+  isOnline: boolean("is_online").default(false).notNull(),
   isPublished: boolean("is_published").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
