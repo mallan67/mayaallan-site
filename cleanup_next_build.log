@@ -1,0 +1,27 @@
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+SyntaxError: Unexpected non-whitespace character after JSON at position 96521 (line 2945 column 1)
+    at JSON.parse (<anonymous>)
+    at patchIncorrectLockfile (/workspaces/mayaallan-site/node_modules/next/dist/lib/patch-incorrect-lockfile.js:94:33)
+SyntaxError: Unexpected non-whitespace character after JSON at position 96521 (line 2945 column 1)
+    at JSON.parse (<anonymous>)
+    at patchIncorrectLockfile (/workspaces/mayaallan-site/node_modules/next/dist/lib/patch-incorrect-lockfile.js:94:33)
+SyntaxError: Unexpected non-whitespace character after JSON at position 96521 (line 2945 column 1)
+    at JSON.parse (<anonymous>)
+    at patchIncorrectLockfile (/workspaces/mayaallan-site/node_modules/next/dist/lib/patch-incorrect-lockfile.js:94:33)
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./archive/prisma-removed-20251218-011733/_disabled_prisma/prisma/seed.ts:14:9
+Type error: Cannot find name 'prisma'.
+
+[0m [90m 12 |[39m   [36mconst[39m passwordHash [33m=[39m [36mawait[39m bcrypt[33m.[39mhash(password[33m,[39m [35m12[39m)[33m;[39m[0m
+[0m [90m 13 |[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m   [36mawait[39m prisma[33m.[39madminUser[33m.[39mupsert({[0m
+[0m [90m    |[39m         [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m     where[33m:[39m { email }[33m,[39m[0m
+[0m [90m 16 |[39m     update[33m:[39m {}[33m,[39m[0m
+[0m [90m 17 |[39m     create[33m:[39m {[0m
+Next.js build worker exited with code: 1 and signal: null

@@ -1,0 +1,5 @@
+_disabled/prisma/seed.ts:1:import { PrismaClient } from "@prisma/client";
+_disabled/prisma/seed.ts:4:const prisma = new PrismaClient();
+_disabled/src/lib/prisma.ts:1:import { PrismaClient } from "@prisma/client";
+_disabled/src/lib/prisma.ts:4:  prisma?: PrismaClient;
+_disabled/src/lib/prisma.ts:9:  new PrismaClient({

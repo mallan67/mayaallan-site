@@ -1,0 +1,11 @@
+FILE: _disabled/prisma/seed.ts
+----------------------
+application/javascript
+
+NULL_BYTES: yes
+CONTROL_CHARS: no
+CRLF: no
+TRAILING_WS: none
+1:import { PrismaClient } from "@prisma/client";
+1:import { PrismaClient } from "@prisma/client";
+4:const prisma = new PrismaClient();
