@@ -48,7 +48,7 @@ export const book = pgTable("book", {
   title: varchar("title", { length: 500 }).notNull(),
   subtitle1: varchar("subtitle1", { length: 500 }),
   subtitle2: varchar("subtitle2", { length: 500 }),
-  tags: jsonb("tags").default(sql\`'[]'::jsonb\`).notNull(),
+  tags: jsonb("tags").default(sql("'[]'::jsonb")).notNull(),
   isbn: varchar("isbn", { length: 50 }),
   copyright: varchar("copyright", { length: 1000 }),
   shortDescription: text("short_description"),
@@ -62,8 +62,8 @@ export const book = pgTable("book", {
   paypalProductId: varchar("paypal_product_id", { length: 255 }),
   isPublished: boolean("is_published").default(false).notNull(),
   isComingSoon: boolean("is_coming_soon").default(false).notNull(),
-  salesMetadata: jsonb("sales_metadata").default(sql\`'{}'::jsonb\`).notNull(),
-  seo: jsonb("seo").default(sql\`'{}'::jsonb\`).notNull(),
+  salesMetadata: jsonb("sales_metadata").default(sql("'{}'::jsonb")).notNull(),
+  seo: jsonb("seo").default(sql("'{}'::jsonb")).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -77,7 +77,7 @@ export const bookRetailer = pgTable("book_retailer_link", {
   retailerId: integer("retailer_id").notNull().references(() => retailer.id),
   url: varchar("url", { length: 2000 }).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
-  types: jsonb("types").default(sql\`'[]'::jsonb\`).notNull(),
+  types: jsonb("types").default(sql("'[]'::jsonb")).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
