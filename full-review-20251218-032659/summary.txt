@@ -1,0 +1,61 @@
+=== GIT STATUS ===
+main
+?? full-review-20251218-032659/
+
+Recent commits:
+e700028 chore: final prisma cleanup + db export fix
+a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+a148e60 chore: archive and remove Prisma artifacts; remove references
+0b75211 chore(db): make lazy DB initializer for safe builds (one-shot-restore)
+d336c24 docs: add ADMIN_BACKEND_SCOPE.md (project scope)
+bc598d6 chore: remove corrupted ADMIN_BACKEND_SCOPE.md
+9cadc19 docs: add ADMIN_BACKEND_SCOPE.md
+9c0a0fb chore: final repo hygiene — remove temp logs/backups, untrack buildinfo
+2fc1bf4 chore: permanently remove archived Prisma artifacts
+cbf9c0a fix(db): remove duplicate export for db (avoid TS/Webpack duplicate export error)
+=== REMOTE BRANCHES (origin) ===
+origin
+main
+
+=== LOCAL BRANCHES ===
+main
+=== TSC (last 200 lines) ===
+
+=== NEXT BUILD (last 200 lines) ===
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/15) ...
+   Generating static pages (3/15) 
+   Generating static pages (7/15) 
+   Generating static pages (11/15) 
+ ✓ Generating static pages (15/15)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    175 B          96.1 kB
+├ ○ /_not-found                          873 B          88.1 kB
+├ ○ /about                               158 B          87.4 kB
+├ ○ /admin                               158 B          87.4 kB
+├ ○ /admin/login                         703 B          87.9 kB
+├ ƒ /api/admin/login                     0 B                0 B
+├ ƒ /api/admin/logout                    0 B                0 B
+├ ○ /articles                            158 B          87.4 kB
+├ ○ /books                               158 B          87.4 kB
+├ ○ /contact                             158 B          87.4 kB
+├ ○ /events                              158 B          87.4 kB
+├ ○ /legal                               158 B          87.4 kB
+└ ○ /media                               158 B          87.4 kB
++ First Load JS shared by all            87.2 kB
+  ├ chunks/117-29466efefd806f9c.js       31.7 kB
+  ├ chunks/fd9d1056-3eee857bde8f3b06.js  53.6 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
