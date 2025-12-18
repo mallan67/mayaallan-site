@@ -1,4 +1,0 @@
-_disabled/prisma/seed.ts:1:import { PrismaClient } from "@prisma/client";
-_disabled/src/lib/prisma.ts:1:import { PrismaClient } from "@prisma/client";
-package-lock.json:1583:        "@prisma/client": "*",
-package-lock.json:1631:        "@prisma/client": {

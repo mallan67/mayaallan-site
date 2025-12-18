@@ -1,3 +1,0 @@
-./deep-review-logs-20251218-011054/report.txt:14:Step 3: Searching for Prisma / @prisma/client / PrismaClient occurrences
-./package-lock.json:1583:        "@prisma/client": "*",
-./package-lock.json:1631:        "@prisma/client": {
