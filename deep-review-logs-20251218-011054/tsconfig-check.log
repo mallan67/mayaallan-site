@@ -1,2 +1,0 @@
-tsconfig.json exclude entries: ['node_modules', 'prisma', '_disabled']
-MISSING exclude patterns: ['.next', 'archive', 'cleanup-backup-*']

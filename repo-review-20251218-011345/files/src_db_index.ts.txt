@@ -1,8 +1,0 @@
-FILE: src/db/index.ts
-----------------------
-application/javascript
-
-NULL_BYTES: yes
-CONTROL_CHARS: no
-CRLF: no
-TRAILING_WS: none

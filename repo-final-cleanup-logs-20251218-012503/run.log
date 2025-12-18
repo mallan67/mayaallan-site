@@ -1,9 +1,0 @@
-[01:25:03] Creating safety backup tag: backup-final-before-delete-20251218-012503
-[01:25:04] Listing branches (local + remote):
-[01:25:04] Local branches saved: ./repo-final-cleanup-logs-20251218-012503/branches_local.txt
-[01:25:04] Remote branches saved: ./repo-final-cleanup-logs-20251218-012503/branches_remote.txt
-[01:25:04] No cleanup/chore branches found on remote matching patterns. (OK)
-[01:25:04] List tracked .ts files under archive/ and _disabled/
-[01:25:04] Disabling tracked TypeScript files (git mv -> .disabled) (keeps git history)
-[01:25:04] git mv: archive/prisma-removed-20251218-011733/_disabled_prisma/prisma/seed.ts -> archive/prisma-removed-20251218-011733/_disabled_prisma/prisma/seed.ts.disabled
-[01:25:04] git mv: archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts -> archive/prisma-removed-20251218-011733/_disabled_src_lib/prisma.ts.disabled
