@@ -1,0 +1,11 @@
+[
+  "node_modules",
+  "prisma",
+  "_disabled",
+  "archive/**",
+  "_disabled/**",
+  ".next/**",
+  "cleanup-backup-*",
+  ".next",
+  "archive"
+]
