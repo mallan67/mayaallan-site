@@ -1,0 +1,26 @@
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ⚠ Compiled with warnings
+
+./src/app/api/admin/login/route.ts
+Attempted import error: 'db' is not exported from '@/db' (imported as 'db').
+
+Import trace for requested module:
+./src/app/api/admin/login/route.ts
+
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/api/admin/login/route.ts:6:10
+Type error: Module '"@/db"' has no exported member 'db'.
+
+[0m [90m 4 |[39m [36mimport[39m { eq } [36mfrom[39m [32m"drizzle-orm"[39m[33m;[39m[0m
+[0m [90m 5 |[39m[0m
+[0m[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { db } [36mfrom[39m [32m"@/db"[39m[33m;[39m[0m
+[0m [90m   |[39m          [31m[1m^[22m[39m[0m
+[0m [90m 7 |[39m [36mimport[39m { adminUser } [36mfrom[39m [32m"@/db/schema"[39m[33m;[39m[0m
+[0m [90m 8 |[39m [36mimport[39m { getAdminSession } [36mfrom[39m [32m"@/lib/session"[39m[33m;[39m[0m
+[0m [90m 9 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null
