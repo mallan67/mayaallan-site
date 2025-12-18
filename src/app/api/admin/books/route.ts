@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/db";
 import { book } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { requireAdminOrThrow } from "@/lib/adminAuth";
 
 const BookPayload = z.object({
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
     title: p.title,
     subtitle1: p.subtitle1 ?? null,
     subtitle2: p.subtitle2 ?? null,
-    tags: JSON.stringify(p.tags ?? []),
+    tags: p.tags ?? [],
     isbn: p.isbn ?? null,
     shortDescription: p.shortDescription ?? null,
     longDescription: p.longDescription ?? null,
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
     allowDirectSale: !!p.allowDirectSale,
     isPublished: !!p.isPublished,
     isComingSoon: !!p.isComingSoon,
-    salesMetadata: JSON.stringify(p.salesMetadata ?? {}),
+    salesMetadata: p.salesMetadata ?? {},
   };
 
   if (p.id) {
