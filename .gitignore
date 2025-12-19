@@ -19,3 +19,7 @@ src/db/schema.ts.bak*
 backup_debug.log
 drizzle/*.bak
 src/db/schema.ts.bak*
+/backups/
+backup_debug.log
+drizzle/*.bak
+src/db/schema.ts.bak*
