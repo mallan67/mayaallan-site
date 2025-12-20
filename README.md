@@ -39,7 +39,6 @@ It includes a basic Prisma schema and wiring, but pages are mostly static placeh
 3. Run Prisma migrations:
 
    ```bash
-   npx prisma migrate dev --name init
    ```
 
 4. Start the dev server:
