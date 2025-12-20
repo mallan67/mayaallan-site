@@ -14,7 +14,7 @@
 -- Name: drizzle; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE SCHEMA drizzle;
+CREATE SCHEMA drizzle;--> statement-breakpoint
 
 
 --
@@ -24,7 +24,7 @@ CREATE SCHEMA drizzle;
 CREATE TYPE public."ArticleStatus" AS ENUM (
     'DRAFT',
     'PUBLISHED'
-);
+);--> statement-breakpoint
 
 
 --
@@ -35,7 +35,7 @@ CREATE TYPE public."BookStatus" AS ENUM (
     'DRAFT',
     'COMING_SOON',
     'PUBLISHED'
-);
+);--> statement-breakpoint
 
 
 --
@@ -46,7 +46,7 @@ CREATE TYPE public."EventStatus" AS ENUM (
     'DRAFT',
     'UPCOMING',
     'PAST'
-);
+);--> statement-breakpoint
 
 
 --
@@ -56,7 +56,7 @@ CREATE TYPE public."EventStatus" AS ENUM (
 CREATE TYPE public."EventType" AS ENUM (
     'ONLINE',
     'IN_PERSON'
-);
+);--> statement-breakpoint
 
 
 --
@@ -66,7 +66,7 @@ CREATE TYPE public."EventType" AS ENUM (
 CREATE TYPE public."MediaStatus" AS ENUM (
     'DRAFT',
     'PUBLISHED'
-);
+);--> statement-breakpoint
 
 
 --
@@ -79,7 +79,7 @@ CREATE TYPE public."MediaType" AS ENUM (
     'VIDEO',
     'PDF_GUIDE',
     'OTHER'
-);
+);--> statement-breakpoint
 
 
 --
@@ -90,7 +90,7 @@ CREATE TYPE public.media_type AS ENUM (
     'audio',
     'video',
     'external'
-);
+);--> statement-breakpoint
 
 
 
@@ -103,7 +103,7 @@ CREATE TABLE drizzle.__drizzle_migrations (
     id integer NOT NULL,
     hash text NOT NULL,
     created_at bigint
-);
+);--> statement-breakpoint
 
 
 --
@@ -116,14 +116,14 @@ CREATE SEQUENCE drizzle.__drizzle_migrations_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: __drizzle_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: drizzle; Owner: -
 --
 
-ALTER SEQUENCE drizzle.__drizzle_migrations_id_seq OWNED BY drizzle.__drizzle_migrations.id;
+ALTER SEQUENCE drizzle.__drizzle_migrations_id_seq OWNED BY drizzle.__drizzle_migrations.id;--> statement-breakpoint
 
 
 --
@@ -138,7 +138,7 @@ CREATE TABLE public.admin_user (
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     display_name character varying(200),
     is_active boolean DEFAULT true NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -151,14 +151,14 @@ CREATE SEQUENCE public.admin_user_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: admin_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.admin_user_id_seq OWNED BY public.admin_user.id;
+ALTER SEQUENCE public.admin_user_id_seq OWNED BY public.admin_user.id;--> statement-breakpoint
 
 
 --
@@ -188,7 +188,7 @@ CREATE TABLE public.book (
     tags jsonb DEFAULT '[]'::jsonb NOT NULL,
     sales_metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
     seo jsonb DEFAULT '{}'::jsonb NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -201,14 +201,14 @@ CREATE SEQUENCE public.book_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
+ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;--> statement-breakpoint
 
 
 --
@@ -221,7 +221,7 @@ CREATE TABLE public.book_retailer_link (
     url text NOT NULL,
     is_active boolean DEFAULT true NOT NULL,
     types jsonb DEFAULT '[]'::jsonb NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -236,7 +236,7 @@ CREATE TABLE public.contact_submission (
     source text,
     meta jsonb,
     created_at timestamp with time zone DEFAULT now() NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -249,14 +249,14 @@ CREATE SEQUENCE public.contact_submission_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: contact_submission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.contact_submission_id_seq OWNED BY public.contact_submission.id;
+ALTER SEQUENCE public.contact_submission_id_seq OWNED BY public.contact_submission.id;--> statement-breakpoint
 
 
 --
@@ -268,7 +268,7 @@ CREATE TABLE public.email_subscriber (
     email character varying(255) NOT NULL,
     is_active boolean DEFAULT true NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -281,14 +281,14 @@ CREATE SEQUENCE public.email_subscriber_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: email_subscriber_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.email_subscriber_id_seq OWNED BY public.email_subscriber.id;
+ALTER SEQUENCE public.email_subscriber_id_seq OWNED BY public.email_subscriber.id;--> statement-breakpoint
 
 
 --
@@ -307,7 +307,7 @@ CREATE TABLE public.event (
     is_visible boolean DEFAULT false NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -320,14 +320,14 @@ CREATE SEQUENCE public.event_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.event_id_seq OWNED BY public.event.id;
+ALTER SEQUENCE public.event_id_seq OWNED BY public.event.id;--> statement-breakpoint
 
 
 --
@@ -347,7 +347,7 @@ CREATE TABLE public.media_item (
     is_visible boolean DEFAULT false NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -360,14 +360,14 @@ CREATE SEQUENCE public.media_item_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: media_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.media_item_id_seq OWNED BY public.media_item.id;
+ALTER SEQUENCE public.media_item_id_seq OWNED BY public.media_item.id;--> statement-breakpoint
 
 
 --
@@ -382,7 +382,7 @@ CREATE TABLE public.retailer (
     is_active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -395,14 +395,14 @@ CREATE SEQUENCE public.retailer_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: retailer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.retailer_id_seq OWNED BY public.retailer.id;
+ALTER SEQUENCE public.retailer_id_seq OWNED BY public.retailer.id;--> statement-breakpoint
 
 
 --
@@ -421,7 +421,7 @@ CREATE TABLE public.site_settings (
     is_visible boolean DEFAULT true NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
-);
+);--> statement-breakpoint
 
 
 --
@@ -434,77 +434,77 @@ CREATE SEQUENCE public.site_settings_id_seq
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1;--> statement-breakpoint
 
 
 --
 -- Name: site_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.site_settings_id_seq OWNED BY public.site_settings.id;
+ALTER SEQUENCE public.site_settings_id_seq OWNED BY public.site_settings.id;--> statement-breakpoint
 
 
 --
 -- Name: __drizzle_migrations id; Type: DEFAULT; Schema: drizzle; Owner: -
 --
 
-ALTER TABLE ONLY drizzle.__drizzle_migrations ALTER COLUMN id SET DEFAULT nextval('drizzle.__drizzle_migrations_id_seq'::regclass);
+ALTER TABLE ONLY drizzle.__drizzle_migrations ALTER COLUMN id SET DEFAULT nextval('drizzle.__drizzle_migrations_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: admin_user id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.admin_user ALTER COLUMN id SET DEFAULT nextval('public.admin_user_id_seq'::regclass);
+ALTER TABLE ONLY public.admin_user ALTER COLUMN id SET DEFAULT nextval('public.admin_user_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: book id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);
+ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: contact_submission id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.contact_submission ALTER COLUMN id SET DEFAULT nextval('public.contact_submission_id_seq'::regclass);
+ALTER TABLE ONLY public.contact_submission ALTER COLUMN id SET DEFAULT nextval('public.contact_submission_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: email_subscriber id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.email_subscriber ALTER COLUMN id SET DEFAULT nextval('public.email_subscriber_id_seq'::regclass);
+ALTER TABLE ONLY public.email_subscriber ALTER COLUMN id SET DEFAULT nextval('public.email_subscriber_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: event id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.event ALTER COLUMN id SET DEFAULT nextval('public.event_id_seq'::regclass);
+ALTER TABLE ONLY public.event ALTER COLUMN id SET DEFAULT nextval('public.event_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: media_item id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.media_item ALTER COLUMN id SET DEFAULT nextval('public.media_item_id_seq'::regclass);
+ALTER TABLE ONLY public.media_item ALTER COLUMN id SET DEFAULT nextval('public.media_item_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: retailer id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.retailer ALTER COLUMN id SET DEFAULT nextval('public.retailer_id_seq'::regclass);
+ALTER TABLE ONLY public.retailer ALTER COLUMN id SET DEFAULT nextval('public.retailer_id_seq'::regclass);--> statement-breakpoint
 
 
 --
 -- Name: site_settings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.site_settings ALTER COLUMN id SET DEFAULT nextval('public.site_settings_id_seq'::regclass);
+ALTER TABLE ONLY public.site_settings ALTER COLUMN id SET DEFAULT nextval('public.site_settings_id_seq'::regclass);--> statement-breakpoint
 
 
 --
@@ -512,7 +512,7 @@ ALTER TABLE ONLY public.site_settings ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY drizzle.__drizzle_migrations
-    ADD CONSTRAINT __drizzle_migrations_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT __drizzle_migrations_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -520,7 +520,7 @@ ALTER TABLE ONLY drizzle.__drizzle_migrations
 --
 
 ALTER TABLE ONLY public.admin_user
-    ADD CONSTRAINT admin_user_email_unique UNIQUE (email);
+    ADD CONSTRAINT admin_user_email_unique UNIQUE (email);--> statement-breakpoint
 
 
 --
@@ -528,7 +528,7 @@ ALTER TABLE ONLY public.admin_user
 --
 
 ALTER TABLE ONLY public.admin_user
-    ADD CONSTRAINT admin_user_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT admin_user_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -536,7 +536,7 @@ ALTER TABLE ONLY public.admin_user
 --
 
 ALTER TABLE ONLY public.book
-    ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT book_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -544,7 +544,7 @@ ALTER TABLE ONLY public.book
 --
 
 ALTER TABLE ONLY public.book_retailer_link
-    ADD CONSTRAINT book_retailer_link_book_id_retailer_id_pk PRIMARY KEY (book_id, retailer_id);
+    ADD CONSTRAINT book_retailer_link_book_id_retailer_id_pk PRIMARY KEY (book_id, retailer_id);--> statement-breakpoint
 
 
 --
@@ -552,7 +552,7 @@ ALTER TABLE ONLY public.book_retailer_link
 --
 
 ALTER TABLE ONLY public.book
-    ADD CONSTRAINT book_slug_unique UNIQUE (slug);
+    ADD CONSTRAINT book_slug_unique UNIQUE (slug);--> statement-breakpoint
 
 
 --
@@ -560,7 +560,7 @@ ALTER TABLE ONLY public.book
 --
 
 ALTER TABLE ONLY public.contact_submission
-    ADD CONSTRAINT contact_submission_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT contact_submission_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -568,7 +568,7 @@ ALTER TABLE ONLY public.contact_submission
 --
 
 ALTER TABLE ONLY public.email_subscriber
-    ADD CONSTRAINT email_subscriber_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT email_subscriber_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -576,7 +576,7 @@ ALTER TABLE ONLY public.email_subscriber
 --
 
 ALTER TABLE ONLY public.event
-    ADD CONSTRAINT event_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT event_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -584,7 +584,7 @@ ALTER TABLE ONLY public.event
 --
 
 ALTER TABLE ONLY public.media_item
-    ADD CONSTRAINT media_item_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT media_item_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -592,7 +592,7 @@ ALTER TABLE ONLY public.media_item
 --
 
 ALTER TABLE ONLY public.retailer
-    ADD CONSTRAINT retailer_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT retailer_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
@@ -600,7 +600,7 @@ ALTER TABLE ONLY public.retailer
 --
 
 ALTER TABLE ONLY public.retailer
-    ADD CONSTRAINT retailer_slug_unique UNIQUE (slug);
+    ADD CONSTRAINT retailer_slug_unique UNIQUE (slug);--> statement-breakpoint
 
 
 --
@@ -608,56 +608,56 @@ ALTER TABLE ONLY public.retailer
 --
 
 ALTER TABLE ONLY public.site_settings
-    ADD CONSTRAINT site_settings_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT site_settings_pkey PRIMARY KEY (id);--> statement-breakpoint
 
 
 --
 -- Name: admin_email_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX admin_email_idx ON public.admin_user USING btree (email);
+CREATE INDEX admin_email_idx ON public.admin_user USING btree (email);--> statement-breakpoint
 
 
 --
 -- Name: book_published_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX book_published_idx ON public.book USING btree (is_published);
+CREATE INDEX book_published_idx ON public.book USING btree (is_published);--> statement-breakpoint
 
 
 --
 -- Name: book_slug_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX book_slug_idx ON public.book USING btree (slug);
+CREATE INDEX book_slug_idx ON public.book USING btree (slug);--> statement-breakpoint
 
 
 --
 -- Name: email_subscriber_email_unique; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX email_subscriber_email_unique ON public.email_subscriber USING btree (email);
+CREATE UNIQUE INDEX email_subscriber_email_unique ON public.email_subscriber USING btree (email);--> statement-breakpoint
 
 
 --
 -- Name: idx_book_is_published; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX idx_book_is_published ON public.book USING btree (is_published);
+CREATE INDEX idx_book_is_published ON public.book USING btree (is_published);--> statement-breakpoint
 
 
 --
 -- Name: idx_event_start_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX idx_event_start_at ON public.event USING btree (start_at);
+CREATE INDEX idx_event_start_at ON public.event USING btree (start_at);--> statement-breakpoint
 
 
 --
 -- Name: retailer_slug_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX retailer_slug_idx ON public.retailer USING btree (slug);
+CREATE INDEX retailer_slug_idx ON public.retailer USING btree (slug);--> statement-breakpoint
 
 
 --
@@ -665,7 +665,7 @@ CREATE INDEX retailer_slug_idx ON public.retailer USING btree (slug);
 --
 
 ALTER TABLE ONLY public.book_retailer_link
-    ADD CONSTRAINT book_retailer_link_book_id_book_id_fk FOREIGN KEY (book_id) REFERENCES public.book(id) ON DELETE CASCADE;
+    ADD CONSTRAINT book_retailer_link_book_id_book_id_fk FOREIGN KEY (book_id) REFERENCES public.book(id) ON DELETE CASCADE;--> statement-breakpoint
 
 
 --
@@ -673,7 +673,7 @@ ALTER TABLE ONLY public.book_retailer_link
 --
 
 ALTER TABLE ONLY public.book_retailer_link
-    ADD CONSTRAINT book_retailer_link_retailer_id_retailer_id_fk FOREIGN KEY (retailer_id) REFERENCES public.retailer(id) ON DELETE CASCADE;
+    ADD CONSTRAINT book_retailer_link_retailer_id_retailer_id_fk FOREIGN KEY (retailer_id) REFERENCES public.retailer(id) ON DELETE CASCADE;--> statement-breakpoint
 
 
 --
