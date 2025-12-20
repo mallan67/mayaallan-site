@@ -23,3 +23,10 @@ src/db/schema.ts.bak*
 backup_debug.log
 drizzle/*.bak
 src/db/schema.ts.bak*
+/backups/
+/*.tar.gz
+/*.tar.gz.gpg
+backup_debug.log
+dev.log
+drizzle/*.bak
+src/db/schema.ts.bak*
