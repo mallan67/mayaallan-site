@@ -32,3 +32,5 @@ drizzle/*.bak
 src/db/schema.ts.bak*
 .env.local
 .env.development.local
+README.md.bak
+rotate-db-password.sh
