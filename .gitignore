@@ -30,3 +30,4 @@ backup_debug.log
 dev.log
 drizzle/*.bak
 src/db/schema.ts.bak*
+.env.local
