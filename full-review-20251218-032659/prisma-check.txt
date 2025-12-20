@@ -1,5 +1,0 @@
-=== PRISMA SEARCH ===
-No @prisma/client matches
-No PrismaClient matches
-
-Possible folders:
