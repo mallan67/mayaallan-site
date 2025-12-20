@@ -1,0 +1,2 @@
+-- noop: initial schema already restored from dump (see drizzle/0000_schema.sql).
+-- This migration intentionally does nothing so Drizzle will recognize the initial schema as applied.
