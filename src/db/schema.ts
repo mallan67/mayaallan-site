@@ -34,7 +34,7 @@ export const adminUser = pgTable("admin_user", {
 export const retailer = pgTable("retailer", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 200 }).notNull(),
-  kind: varchar("kind", { length: 100 }).notNull(), // 'amazon', 'lulu', 'google', ...
+  kind: varchar("kind", { length: 100 }).notNull(),
   logoUrl: varchar("logo_url", { length: 1000 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -42,28 +42,49 @@ export const retailer = pgTable("retailer", {
 
 /**
  * Books
+ *
+ * JS-friendly camelCase keys map to exact DB column names (snake_case).
  */
 export const book = pgTable("book", {
   id: serial("id").primaryKey(),
+
+  // required slug column (matches your DB)
+  slug: varchar("slug", { length: 320 }).notNull(),
+
   title: varchar("title", { length: 500 }).notNull(),
-  subtitle1: varchar("subtitle1", { length: 500 }),
-  subtitle2: varchar("subtitle2", { length: 500 }),
+
+  // DB columns are subtitle_1 / subtitle_2
+  subtitle1: varchar("subtitle_1", { length: 500 }),
+  subtitle2: varchar("subtitle_2", { length: 500 }),
+
+  // JSONB tags
   tags: jsonb("tags").default(sql`'[]'::jsonb`).notNull(),
+
   isbn: varchar("isbn", { length: 50 }),
-  copyright: varchar("copyright", { length: 1000 }),
+
+  // Short/long descriptions (snake_case DB columns)
   shortDescription: text("short_description"),
   longDescription: text("long_description"),
+
   coverImageUrl: varchar("cover_image_url", { length: 1000 }),
   backCoverImageUrl: varchar("back_cover_image_url", { length: 1000 }),
-  allowDirectSale: boolean("allow_direct_sale").default(false).notNull(),
-  stripeEnabled: boolean("stripe_enabled").default(false).notNull(),
+
+  // DB uses 'direct_sale_enabled'
+  allowDirectSale: boolean("direct_sale_enabled").default(false).notNull(),
+
+  // Product ids (DB uses 'stripe_product_id' and 'paypal_button_id')
   stripeProductId: varchar("stripe_product_id", { length: 255 }),
-  paypalEnabled: boolean("paypal_enabled").default(false).notNull(),
-  paypalProductId: varchar("paypal_product_id", { length: 255 }),
+  paypalProductId: varchar("paypal_button_id", { length: 255 }),
+
   isPublished: boolean("is_published").default(false).notNull(),
   isComingSoon: boolean("is_coming_soon").default(false).notNull(),
+
   salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
   seo: jsonb("seo").default(sql`'{}'::jsonb`).notNull(),
+
+  seoTitle: text("seo_title"),
+  seoDescription: text("seo_description"),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -82,6 +103,9 @@ export const bookRetailer = pgTable("book_retailer_link", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 // NOTE: add UNIQUE(book_id, retailer_id) in a migration
+
+// Backwards-compatibility alias for older snake_case imports:
+export const book_retailer_link = bookRetailer;
 
 /**
  * Media items (audio/video)
