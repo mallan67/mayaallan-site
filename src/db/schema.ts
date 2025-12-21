@@ -77,7 +77,7 @@ export const book = pgTable("book", {
   paypalProductId: varchar("paypal_button_id", { length: 255 }),
 
   isPublished: boolean("is_published").default(false).notNull(),
-  isComingSoon: boolean("is_coming_soon").default(false).notNull(),
+  comingSoon: boolean("coming_soon").default(false).notNull(),
 
   salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
   seo: jsonb("seo").default(sql`'{}'::jsonb`).notNull(),
