@@ -19,7 +19,7 @@ const BookPayload = z.object({
   backCoverImageUrl: z.string().optional().nullable(),
   allowDirectSale: z.boolean().optional(),
   isPublished: z.boolean().optional(),
-  isComingSoon: z.boolean().optional(),
+  comingSoon: z.boolean().optional(),
   salesMetadata: z.record(z.string(), z.any()).optional(),
 });
 
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     backCoverImageUrl: p.backCoverImageUrl ?? null,
     allowDirectSale: !!p.allowDirectSale,
     isPublished: !!p.isPublished,
-    isComingSoon: !!p.isComingSoon,
+    comingSoon: !!p.comingSoon,
     salesMetadata: p.salesMetadata ?? {},
   };
 
