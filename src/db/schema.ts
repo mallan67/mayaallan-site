@@ -1,6 +1,6 @@
 /**
  * src/db/schema.ts
- * Drizzle ORM table definitions that match the DB (snake_case columns).
+ * Drizzle ORM table definitions for Maya Allan admin site
  */
 
 import { sql } from "drizzle-orm";
@@ -13,10 +13,11 @@ import {
   boolean,
   timestamp,
   jsonb,
-  primaryKey,
 } from "drizzle-orm/pg-core";
 
-/** admin_user */
+/**
+ * Admin users (single admin)
+ */
 export const adminUser = pgTable("admin_user", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
@@ -27,7 +28,9 @@ export const adminUser = pgTable("admin_user", {
   isActive: boolean("is_active").default(true).notNull(),
 });
 
-/** retailer */
+/**
+ * Retailers (Amazon, Lulu, Google, etc)
+ */
 export const retailer = pgTable("retailer", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 200 }).notNull(),
@@ -37,39 +40,46 @@ export const retailer = pgTable("retailer", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-/** book - map JS-friendly camelCase props to the exact DB snake_case columns */
+/**
+ * Books
+ *
+ * JS-friendly camelCase keys map to exact DB column names (snake_case).
+ */
 export const book = pgTable("book", {
   id: serial("id").primaryKey(),
 
-  // DB column "slug"
+  // required slug column (matches your DB)
   slug: varchar("slug", { length: 320 }).notNull(),
 
   title: varchar("title", { length: 500 }).notNull(),
 
-  // DB columns subtitle_1 / subtitle_2
+  // DB columns are subtitle_1 / subtitle_2
   subtitle1: varchar("subtitle_1", { length: 500 }),
   subtitle2: varchar("subtitle_2", { length: 500 }),
 
-  // tags JSONB
+  // JSONB tags
   tags: jsonb("tags").default(sql`'[]'::jsonb`).notNull(),
 
   isbn: varchar("isbn", { length: 50 }),
 
-  // descriptions
+  // Short/long descriptions (snake_case DB columns)
   shortDescription: text("short_description"),
   longDescription: text("long_description"),
 
   coverImageUrl: varchar("cover_image_url", { length: 1000 }),
   backCoverImageUrl: varchar("back_cover_image_url", { length: 1000 }),
 
-  // DB column direct_sale_enabled
+  // DB uses 'direct_sale_enabled'
   allowDirectSale: boolean("direct_sale_enabled").default(false).notNull(),
 
+  // Product ids (DB uses 'stripe_product_id' and 'paypal_button_id')
   stripeProductId: varchar("stripe_product_id", { length: 255 }),
   paypalProductId: varchar("paypal_button_id", { length: 255 }),
 
   isPublished: boolean("is_published").default(false).notNull(),
-  comingSoon: boolean("coming_soon").default(false).notNull(),
+
+  // <- keep JS property exactly "isComingSoon" mapped to DB column "coming_soon"
+  isComingSoon: boolean("coming_soon").default(false).notNull(),
 
   salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
   seo: jsonb("seo").default(sql`'{}'::jsonb`).notNull(),
@@ -82,30 +92,30 @@ export const book = pgTable("book", {
 });
 
 /**
- * book_retailer_link
+ * Book <-> Retailer links
  *
- * Important: your DB uses book_id + retailer_id (no serial id).
- * Declare a composite primary key so Drizzle doesn't expect an `id` column.
+ * Some DBs use an id serial, some use a compound primary key. The schema below
+ * declares an id (usual Drizzle-friendly model). If your DB lacks an `id`,
+ * you can edit this to remove id and rely on the (book_id, retailer_id) composite key.
  */
-export const bookRetailer = pgTable(
-  "book_retailer_link",
-  {
-    bookId: integer("book_id").notNull().references(() => book.id),
-    retailerId: integer("retailer_id").notNull().references(() => retailer.id),
-    url: varchar("url", { length: 2000 }).notNull(),
-    isActive: boolean("is_active").default(true).notNull(),
-    types: jsonb("types").default(sql`'[]'::jsonb`).notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow(),
-  },
-  // table options: composite primary key
-  (t) => ({ pk: primaryKey(t.bookId, t.retailerId) })
-);
+export const bookRetailer = pgTable("book_retailer_link", {
+  id: serial("id").primaryKey(),
+  bookId: integer("book_id").notNull().references(() => book.id),
+  retailerId: integer("retailer_id").notNull().references(() => retailer.id),
+  url: varchar("url", { length: 2000 }).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  types: jsonb("types").default(sql`'[]'::jsonb`).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+// NOTE: add UNIQUE(book_id, retailer_id) in a migration if you want that constraint
 
-// backwards compatibility: if any code imports snake_case export name
+// Backwards-compatibility alias for older snake_case imports:
 export const book_retailer_link = bookRetailer;
 
-/** media_item */
+/**
+ * Media items (audio/video)
+ */
 export const mediaItem = pgTable("media_item", {
   id: serial("id").primaryKey(),
   kind: varchar("kind", { length: 20 }).notNull(),
@@ -122,7 +132,9 @@ export const mediaItem = pgTable("media_item", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-/** event */
+/**
+ * Events / Meetups
+ */
 export const event = pgTable("event", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
@@ -137,7 +149,9 @@ export const event = pgTable("event", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-/** contact_submission */
+/**
+ * Contact submissions (lightweight CRM)
+ */
 export const contactSubmission = pgTable("contact_submission", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 200 }),
@@ -147,7 +161,9 @@ export const contactSubmission = pgTable("contact_submission", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-/** email_subscriber */
+/**
+ * Email subscribers
+ */
 export const emailSubscriber = pgTable("email_subscriber", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
@@ -155,7 +171,9 @@ export const emailSubscriber = pgTable("email_subscriber", {
   isActive: boolean("is_active").default(true).notNull(),
 });
 
-/** site_settings */
+/**
+ * Site settings (key/value JSON)
+ */
 export const siteSettings = pgTable("site_settings", {
   id: serial("id").primaryKey(),
   key: varchar("key", { length: 200 }).notNull().unique(),
