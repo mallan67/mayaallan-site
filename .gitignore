@@ -34,3 +34,13 @@ src/db/schema.ts.bak*
 .env.development.local
 README.md.bak
 rotate-db-password.sh
+*.dump
+*.sql
+*.sql.applied
+*.bak
+pnpm-debug.log
+pnpm-fix.log
+pnpm-install-ndjson.log
+package-lock.json.bak
+pnpm-lock.yaml.bak
+JSON
