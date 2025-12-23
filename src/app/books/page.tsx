@@ -1,8 +1,9 @@
 // src/app/books/page.tsx
+import { eq, desc } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+
 
 type BookWithLinks = {
   id: number;

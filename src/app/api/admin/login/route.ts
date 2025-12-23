@@ -1,7 +1,8 @@
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+
 
 import { db } from "@/db";
 import { adminUser } from "@/db/schema";
