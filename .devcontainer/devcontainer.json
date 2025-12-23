@@ -1,32 +1,20 @@
 {
-  "name": "Codex / Codespaces",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "name": "mayaallan-codespace",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:20",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "lts" }
+    "ghcr.io/devcontainers/features/git-lfs:1": {}
   },
-
-  // Optional: forward any ports you want to expose from the Codespace
-  "forwardPorts": [8000],
-
-  // Install codex CLI and any other deps after container is created
-  "postCreateCommand": "/bin/bash -lc \"npm install -g @openai/codex || true && echo 'Codex CLI installed'\"",
-
-  // Keep VS Code extensions consistent
+  "postCreateCommand": "npm install -g @openai/codex --unsafe-perm=true || true",
+  "forwardPorts": [3000],
+  "remoteEnv": {
+    "OPENAI_API_KEY": "${codespaces:secrets.OPENAI_API_KEY}"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
-        "GitHub.copilot",           // Copilot / Codex features (optional)
-        "ms-vscode-remote.remote-containers"
-      ],
-      "settings": {
-        // optionally allow network access for extensions if you need it
-        "github.copilot.advanced.networkRequests": "allow"
-      }
-    },
-    "codespaces": {
-      "idleTimeout": "30m"
+        "ms-vscode.vscode-typescript-next"
+      ]
     }
-  },
-
-  "remoteUser": "vscode"
+  }
 }
+
