@@ -1,13 +1,25 @@
-export default async function BooksPage() {
+// src/app/books/page.tsx (server component)
+import React from 'react';
+import { db } from '../../lib/db';
+import { book } from '../../db/schema'; // your Drizzle schema
+
+export default async function Page() {
+  const rows = await db.select().from(book).orderBy(book.created_at.desc()).limit(50);
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 md:py-12">
-      <h1 className="font-serif text-2xl md:text-3xl font-semibold mb-4">
-        Books
-      </h1>
-      <p className="text-sm text-slate-700">
-        This page will list all books once the Prisma backend and admin are wired
-        to your database.
-      </p>
-    </div>
+    <main>
+      <h1>Books</h1>
+      {rows.length === 0 ? (
+        <p>No books found.</p>
+      ) : (
+        <ul>
+          {rows.map((r) => (
+            <li key={r.id}>
+              <strong>{r.title}</strong> — <em>{r.slug}</em> — {r.coming_soon ? 'Coming soon' : 'Available'}
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
   );
 }
