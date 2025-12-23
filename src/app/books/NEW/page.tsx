@@ -1,11 +1,10 @@
-// src/app/books/new/page.tsx
+// src/app/books/NEW/page.tsx
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "@/db";
 import { book } from "@/db/schema";
 
 export default async function NewBooksPage() {
-  // server-side: fetch recent books but SELECT explicitly (omit salesMetadata)
   const books = await db
     .select({
       id: book.id,
@@ -36,7 +35,7 @@ export default async function NewBooksPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Books — New</h1>
+      <h1 className="text-3xl font-bold mb-6">Books — NEW</h1>
 
       {books.length === 0 ? (
         <p>No books yet.</p>
