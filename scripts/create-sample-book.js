@@ -1,13 +1,8 @@
-mkdir -p scripts
-cat > scripts/create-sample-book.js <<'JS'
-/* Full script — replace the placeholder with this exact content */
-// scripts/create-sample-book.js
-// Usage:
-//   POSTGRES_URL=... NEXT_PUBLIC_SITE_URL=http://localhost:3000 node scripts/create-sample-book.js
-//
-// This will upsert a book with slug "psilocybin-integration",
-// create (or reuse) retailers "Amazon" and "Lulu", and make active links.
-
+/* scripts/create-sample-book.js
+   Upserts a published sample book "psilocybin-integration" and links Amazon/Lulu retailers.
+   Run with:
+     POSTGRES_URL=... NEXT_PUBLIC_SITE_URL=http://localhost:3000 node scripts/create-sample-book.js
+*/
 const postgres = require('postgres');
 
 const POSTGRES_URL = process.env.POSTGRES_URL || process.env.DATABASE_URL;
@@ -27,7 +22,7 @@ async function main() {
   const shortDescription = 'An educational companion for integrating psychedelic experiences into day-to-day life.';
   const longDescription = 'Full description and details for the Psilocybin Integration Guide.';
 
-  // Example retailer URLs — replace with your actual product links if you have them
+  // Example retailer URLs — replace with your product links if available
   const retailers = [
     { name: 'Amazon', kind: 'marketplace', url: 'https://www.amazon.com/dp/EXAMPLE' },
     { name: 'Lulu', kind: 'print-on-demand', url: 'https://www.lulu.com/example' },
@@ -115,4 +110,3 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
-JS
