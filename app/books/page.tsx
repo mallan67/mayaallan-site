@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { db } from "@/db/index";
 import { book, bookRetailer, retailer } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 type BookWithLinks = {
   id: number;
@@ -25,7 +25,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
     })
     .from(book)
     .where(eq(book.isPublished, true))
-    .orderBy(book.createdAt.desc())
+    .orderBy(desc(book.createdAt))
     .limit(20);
 
   const ids = rows.map((r) => r.id);
