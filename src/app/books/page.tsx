@@ -51,7 +51,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
     linksByBook.set(l.bookId, arr);
   }
 
-  return rows.map((r) => ({
+  return rows.map((r: any) => ({
     id: r.id,
     title: r.title,
     slug: r.slug,
