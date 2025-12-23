@@ -78,8 +78,8 @@ export const book = pgTable("book", {
 
   isPublished: boolean("is_published").default(false).notNull(),
 
-  // <- keep JS property exactly "isComingSoon" mapped to DB column "coming_soon"
-  isComingSoon: boolean("coming_soon").default(false).notNull(),
+  // <- keep JS property exactly "comingSoon" mapped to DB column "coming_soon"
+  comingSoon: boolean("coming_soon").default(false).notNull(),
 
   salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
   seo: jsonb("seo").default(sql`'{}'::jsonb`).notNull(),
