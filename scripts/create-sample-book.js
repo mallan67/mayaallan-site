@@ -1,3 +1,6 @@
+mkdir -p scripts
+cat > scripts/create-sample-book.js <<'JS'
+/* Full script — replace the placeholder with this exact content */
 // scripts/create-sample-book.js
 // Usage:
 //   POSTGRES_URL=... NEXT_PUBLIC_SITE_URL=http://localhost:3000 node scripts/create-sample-book.js
@@ -112,3 +115,4 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+JS
