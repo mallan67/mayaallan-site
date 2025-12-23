@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { book } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 export default async function BooksPage() {
   // server-side DB call: only published books, newest first
@@ -10,7 +10,7 @@ export default async function BooksPage() {
     .select()
     .from(book)
     .where(eq(book.isPublished, true))
-    .orderBy(book.createdAt.desc())
+    .orderBy(desc(book.created_at))
     .limit(50);
 
   return (
