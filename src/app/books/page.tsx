@@ -28,7 +28,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
     .orderBy(desc(book.createdAt)) // note the parentheses
     .limit(20);
 
-  const ids = rows.map((r) => r.id);
+  const ids = rows.map((r: any) => r.id);
   if (ids.length === 0) return [];
 
   const links = await db
