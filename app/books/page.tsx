@@ -1,8 +1,8 @@
 // app/books/page.tsx (Server component) — corrected to use eq()
 import Link from "next/link";
 import React from "react";
-import { db } from "@/src/db/index";
-import { book, bookRetailer, retailer } from "@/src/db/schema";
+import { db } from "@/db/index";
+import { book, bookRetailer, retailer } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 type BookWithLinks = {

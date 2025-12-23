@@ -1,7 +1,7 @@
 // app/books/[slug]/page.tsx (Server component) — corrected to use eq()
 import React from "react";
-import { db } from "@/src/db/index";
-import { book, bookRetailer, retailer } from "@/src/db/schema";
+import { db } from "@/db/index";
+import { book, bookRetailer, retailer } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 type Params = { params: { slug: string } };
