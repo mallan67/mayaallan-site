@@ -1,7 +1,7 @@
 // app/api/admin/books/route.ts
 import { NextResponse } from "next/server";
-import { db } from "@/src/db/index";
-import { book } from "@/src/db/schema";
+import { db } from "@/db/index";
+import { book } from "@/db/schema";
 
 export async function POST(req: Request) {
   try {

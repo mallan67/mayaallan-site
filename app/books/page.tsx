@@ -1,8 +1,8 @@
 cat > src/app/books/page.tsx <<'TS'
  // src/app/books/page.tsx
  import Link from "next/link";
- import { db } from "../../lib/db";
- import { book } from "../../db/schema";
+ import { db } from "@/lib/db";
+ import { book } from "@/db/schema";
  import { eq } from "drizzle-orm";
  
  export default async function BooksPage() {
