@@ -1,10 +1,8 @@
-# make sure you're on the branch you're working on
+# 1) Make sure you're on the correct branch
 git checkout cleanup/streamline-app
 
-# create directories if needed
+# 2) Ensure directory exists and replace BookForm exactly
 mkdir -p src/app/admin/books/new
-
-# write the BookForm.tsx file (paste mode)
 cat > src/app/admin/books/new/BookForm.tsx <<'EOF'
 'use client';
 
@@ -324,3 +322,8 @@ function RetailerEditor({ retailers, setRetailers }: { retailers: Retailer[]; se
   );
 }
 EOF
+
+# 3) Add and commit
+git add src/app/admin/books/new/BookForm.tsx
+git commit -m "feat(admin): add BookForm with upload integration (client)"
+git push origin cleanup/streamline-app
