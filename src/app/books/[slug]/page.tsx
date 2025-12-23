@@ -20,7 +20,7 @@ export default async function BookPage({ params: { slug } }: Props) {
       backCoverImageUrl: book.backCoverImageUrl,
       tags: book.tags,
       isPublished: book.isPublished,
-      isComingSoon: book.isComingSoon,
+      comingSoon: book.comingSoon,
     })
     .from(book)
     .where(eq(book.slug, slug))
