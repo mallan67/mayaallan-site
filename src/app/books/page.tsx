@@ -24,7 +24,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
     })
     .from(book)
     .where(eq(book.isPublished, true))
-    .orderBy(book.createdAt.desc()) // note the parentheses
+    .orderBy(desc(book.createdAt)) // note the parentheses
     .limit(20);
 
   const ids = rows.map((r) => r.id);

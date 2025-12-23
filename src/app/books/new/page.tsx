@@ -8,7 +8,7 @@ export default async function NewBooksPage() {
   const books = await db
     .select()
     .from(book)
-    .orderBy(book.createdAt.desc)
+    .orderBy(desc(book.createdAt))
     .limit(50);
 
   return (

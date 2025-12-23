@@ -10,7 +10,7 @@ export default async function BooksPage() {
     .select()
     .from(book)
     .where(eq(book.isPublished, true))
-    .orderBy(desc(book.created_at))
+    .orderBy(desc(book.createdAt))
     .limit(50);
 
   return (
