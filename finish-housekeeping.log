@@ -1,0 +1,272 @@
+Removing tracked backup files (if present and tracked):
+ -> git rm -f package-lock.json.bak
+rm 'package-lock.json.bak'
+ -> git rm -f pnpm-lock.yaml.bak
+rm 'pnpm-lock.yaml.bak'
+ -> git rm -f pnpm-debug.log
+rm 'pnpm-debug.log'
+ -> git rm -f pnpm-fix.log
+rm 'pnpm-fix.log'
+ -> git rm -f pnpm-install-ndjson.log
+rm 'pnpm-install-ndjson.log'
+ -> git rm -f backup_before_coming_soon_changes.dump
+rm 'backup_before_coming_soon_changes.dump'
+ -> git rm -f before-migrations-2025-12-23.dump
+rm 'before-migrations-2025-12-23.dump'
+ -> git rm -f book_backup.csv
+rm 'book_backup.csv'
+ -> git rm -f JSON
+rm 'JSON'
+ -> removing tsconfig.tsbuildinfo
+Removing temporary clone /tmp/mayaallan-fresh
+Removed /tmp/mayaallan-fresh
+Updating .gitignore with housekeeping patterns
+  added: *.dump
+  added: *.sql
+  added: *.sql.applied
+  added: *.bak
+  added: pnpm-debug.log
+  added: pnpm-fix.log
+  added: pnpm-install-ndjson.log
+  added: package-lock.json.bak
+  added: pnpm-lock.yaml.bak
+  added: JSON
+.env.local not tracked (or already removed)
+Committing housekeeping changes...
+[main 784d1d5] chore(housekeeping): remove temp/backup files, ignore env and backups
+ 10 files changed, 10 insertions(+), 15747 deletions(-)
+ delete mode 100644 JSON
+ delete mode 100644 backup_before_coming_soon_changes.dump
+ delete mode 100644 before-migrations-2025-12-23.dump
+ delete mode 100644 book_backup.csv
+ delete mode 100644 package-lock.json.bak
+ delete mode 100644 pnpm-debug.log
+ delete mode 100644 pnpm-fix.log
+ delete mode 100644 pnpm-install-ndjson.log
+ delete mode 100644 pnpm-lock.yaml.bak
+Expiring reflogs and running git gc --prune=now --aggressive (local only)
+Verifying removed paths listed in /tmp/paths-to-remove.txt are not present in git history:
+OK (not found): .env.local
+OK (not found): backups
+OK (not found): before-migrations-2025-12-23.dump
+OK (not found): backup_before_coming_soon_changes.dump
+OK (not found): restore-logs-20251218-031535
+OK (not found): drizzle/meta.bak
+OK (not found): src/db/schema.ts.bak
+OK (not found): pnpm-install-ndjson.log
+OK (not found): pnpm-debug.log
+OK (not found): pnpm-fix.log
+OK (not found): package-lock.json.bak
+OK (not found): pnpm-lock.yaml.bak
+OK (not found): archive/leftovers-20251218-033149
+OK (not found): archive/prisma_artifacts
+Scanning git history for high-risk token patterns (VERCEL_OIDC_TOKEN, SESSION_SECRET, DATABASE_URL)
+WARNING: Potential sensitive strings found in history. Please inspect finish-housekeeping.log for hits.
++      - name: Update Vercel DATABASE_URL (optional)
++            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
++              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
++  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
++  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
++  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
++  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
++  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
++  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
++  process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5433/postgres";
+-    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
++    return { status: "error", message: "Database not configured. Set POSTGRES_URL/DATABASE_URL." };
++  const raw = process.env.SESSION_SECRET ?? process.env.ADMIN_PASSWORD;
++  if (!raw) throw new Error("Missing SESSION_SECRET or ADMIN_PASSWORD for admin auth/session");
+-  password: process.env.SESSION_SECRET as string,
+-  if (!process.env.SESSION_SECRET) throw new Error("Missing SESSION_SECRET");
+4d4513cef4cf82992a2c603d88bc0803d8721440 chore(dev): avoid printing DATABASE_URL in start script
+ : "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+ export DATABASE_URL
+-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+0a0f72d6750ef53457be1e0baafd306021df03ea chore(dev): avoid printing DATABASE_URL in start script
+ : "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+ export DATABASE_URL
+-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
++: "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
++export DATABASE_URL
++echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
++: "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
++export DATABASE_URL
++echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
++DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
++SESSION_SECRET="<strong-random-secret>"
+-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
++DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
++SESSION_SECRET="<strong-random-secret>"
++#   ./scripts/pull-vercel-env.sh DATABASE_URL     # pull only DATABASE_URL
++#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan/mayaallan-site
++#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan mayaallan-site
++#   ./scripts/pull-vercel-env.sh DATABASE_URL     # pull only DATABASE_URL
++#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan/mayaallan-site
++#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan mayaallan-site
++export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
++echo "Using DATABASE_URL=${DATABASE_URL}"
++export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
++echo "Using DATABASE_URL=${DATABASE_URL}"
+-  password: process.env.SESSION_SECRET as string,
+-  if (!process.env.SESSION_SECRET) throw new Error("Missing SESSION_SECRET");
+-a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+- * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
+-  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+-    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
+- * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
+-  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+-    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
++      - name: Update Vercel DATABASE_URL (optional)
++            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
++              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
++      - name: Update Vercel DATABASE_URL (optional)
++            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
++              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
++ * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
++  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
++    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
++ * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
++  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
++    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
++  password: process.env.SESSION_SECRET as string,
++  if (!process.env.SESSION_SECRET) throw new Error("Missing SESSION_SECRET");
++  password: process.env.SESSION_SECRET as string,
++  if (!process.env.SESSION_SECRET) throw new Error("Missing SESSION_SECRET");
+ - The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
+ - The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
++- The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
++const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++  console.error("Set POSTGRES_URL or DATABASE_URL first.");
++ * The script looks for POSTGRES_URL or DATABASE_URL.
++const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++  console.error("ERROR: Set POSTGRES_URL or DATABASE_URL before running migrations.");
++- The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
++const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++  console.error("Set POSTGRES_URL or DATABASE_URL first.");
++ * The script looks for POSTGRES_URL or DATABASE_URL.
++const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
++  console.error("ERROR: Set POSTGRES_URL or DATABASE_URL before running migrations.");
++a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
++a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+-const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+-          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+-          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
++ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
++  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
++      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
++ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
++  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
++      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+a4e835384b9d39008df0036768ff9f531a1db05c fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
++// If DATABASE_URL/POSTGRES_URL is missing, `db` is a dummy proxy that throws at runtime when used.
+-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
++const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
++          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
++          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+8126d6fc92df6850aae700e4245d174731b898b5 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
++// If DATABASE_URL/POSTGRES_URL is missing, `db` is a dummy proxy that throws at runtime when used.
+-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
++const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
++          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
++          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
++const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
++          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
++          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
++const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
++          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
++          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
++ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+-const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
++  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
++      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+-          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+-          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
++ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+-const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
++  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
++      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+-          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+-          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+-DATABASE_URL
+-DATABASE_URL
++DATABASE_URL
++DATABASE_URL
+-Error: Missing POSTGRES_URL or DATABASE_URL
+-Error: Missing POSTGRES_URL or DATABASE_URL
+-Error: Missing POSTGRES_URL or DATABASE_URL
+-Error: Missing POSTGRES_URL or DATABASE_URL
+b2f1c10bd605076bde2baec10bb44e1ca7bfc097 chore(db): avoid throwing on import when DATABASE_URL missing; export dummy db proxy
+ const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+-  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
++          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
++          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+7f3ac019ca0883983f8b7c751396f20d42a03b19 chore(db): avoid throwing on import when DATABASE_URL missing; export dummy db proxy
+ const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+-  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
++          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
++          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
++Error: Missing POSTGRES_URL or DATABASE_URL
++Error: Missing POSTGRES_URL or DATABASE_URL
++Error: Missing POSTGRES_URL or DATABASE_URL
++Error: Missing POSTGRES_URL or DATABASE_URL
+   password: process.env.SESSION_SECRET as string,
+   password: process.env.SESSION_SECRET as string,
+-    url: process.env.DATABASE_URL!,
++    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
+-    url: process.env.DATABASE_URL!,
++    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
+-const connectionString = process.env.DATABASE_URL;
+-if (!connectionString) throw new Error("Missing DATABASE_URL");
++const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
++  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
+-const connectionString = process.env.DATABASE_URL;
+-if (!connectionString) throw new Error("Missing DATABASE_URL");
++const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
++  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
+     url: process.env.DATABASE_URL!,
+     url: process.env.DATABASE_URL!,
++const connectionString = process.env.DATABASE_URL;
++if (!connectionString) throw new Error("Missing DATABASE_URL");
++const connectionString = process.env.DATABASE_URL;
++if (!connectionString) throw new Error("Missing DATABASE_URL");
+     url: process.env.DATABASE_URL!,
+     url: process.env.DATABASE_URL!,
++    url: process.env.DATABASE_URL!,
++    url: process.env.DATABASE_URL!,
+-  url      = env("DATABASE_URL")
+-    HAS_SESSION_SECRET: Boolean(process.env.SESSION_SECRET),
+-  url      = env("DATABASE_URL")
+-    HAS_SESSION_SECRET: Boolean(process.env.SESSION_SECRET),
++  password: process.env.SESSION_SECRET as string,
++  if (!process.env.SESSION_SECRET) throw new Error("Missing SESSION_SECRET");
++  password: process.env.SESSION_SECRET as string,
++  if (!process.env.SESSION_SECRET) throw new Error("Missing SESSION_SECRET");
+-DATABASE_URL="PASTE_THE_DATABASE_URL_HERE"
+-DATABASE_URL="PASTE_THE_DATABASE_URL_HERE"
++    HAS_SESSION_SECRET: Boolean(process.env.SESSION_SECRET),
++    HAS_SESSION_SECRET: Boolean(process.env.SESSION_SECRET),
+Pushing housekeeping commit(s) to origin/main
+To https://github.com/mallan67/mayaallan-site
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/mallan67/mayaallan-site'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
