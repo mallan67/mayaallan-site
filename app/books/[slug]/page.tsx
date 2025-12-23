@@ -38,7 +38,7 @@ async function getBookBySlug(slug: string) {
     .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
     .where(eq(bookRetailer.bookId, b.id))
     .where(eq(bookRetailer.isActive, true))
-    .where(eq(retailer.isActive, true));
+    
 
   return { ...b, retailers: links };
 }
