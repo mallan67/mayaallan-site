@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 type BookWithLinks = {
   id: number;
