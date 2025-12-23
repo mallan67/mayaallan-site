@@ -1,50 +1,44 @@
-// src/app/books/new/page.tsx
-'use client';
-import { useState } from 'react';
+// src/app/books/NEW/page.tsx
+import Link from "next/link";
+import { db } from "../../../lib/db";
+import { book } from "../../../db/schema";
 
-export default function NewBookPage() {
-  const [title, setTitle] = useState('');
-  const [slug, setSlug] = useState('');
-  const [coming, setComing] = useState(false);
-  const [saving, setSaving] = useState(false);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-
-    const res = await fetch('/api/books', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, slug, coming_soon: coming }),
-    });
-
-    if (!res.ok) {
-      alert('Failed to save');
-    } else {
-      // redirect back to list
-      window.location.href = '/books';
-    }
-    setSaving(false);
-  }
+export default async function NewBooksPage() {
+  // server-side: fetch recent books
+  const books = await db
+    .select()
+    .from(book)
+    .orderBy(book.createdAt.desc)
+    .limit(50);
 
   return (
-    <main>
-      <h1>Add Book</h1>
-      <form onSubmit={onSubmit}>
-        <label>
-          Title
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        </label>
-        <label>
-          Slug
-          <input value={slug} onChange={(e) => setSlug(e.target.value)} />
-        </label>
-        <label>
-          Coming soon
-          <input type="checkbox" checked={coming} onChange={(e) => setComing(e.target.checked)} />
-        </label>
-        <button type="submit" disabled={saving}>{saving ? 'Saving…' : 'Save'}</button>
-      </form>
-    </main>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-6">Books — NEW</h1>
+
+      {books.length === 0 ? (
+        <p>No books yet.</p>
+      ) : (
+        <ul className="space-y-4">
+          {books.map((b) => (
+            <li key={b.id} className="border-b pb-3">
+              <Link
+                href={`/books/${b.slug}`}
+                className="text-lg font-semibold text-blue-600 hover:underline"
+              >
+                {b.title}
+              </Link>
+              {b.subtitle1 ? (
+                <div className="text-sm text-gray-600">{b.subtitle1}</div>
+              ) : null}
+              {/* small meta row */}
+              <div className="text-xs text-gray-400 mt-1">
+                {b.createdAt ? new Date(b.createdAt).toLocaleString() : ""}
+                {b.comingSoon ? " • Coming soon" : ""}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
