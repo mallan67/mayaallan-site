@@ -1,0 +1,377 @@
+
+Fetching origin...
+Checking out main and aligning with origin/main (non-destructive)...
+Switched to branch 'main'
+HEAD is now at 6c3fd34 Create devcontainer.json
+Now on: main (rev 6c3fd34)
+
+=== Git status / untracked files ===
+?? repo-main-check.log
+
+=== Untracked top-level junk (first 200) ===
+repo-main-check.log
+
+=== Potential secrets / leaked artifacts ===
+./docs/DB_SETUP.md:16:- The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
+./.git/COMMIT_EDITMSG:1:ci(codespace): add devcontainer with Codex cli and OPENAI_API_KEY injection
+./.github/workflows/rotate-secrets.yml:65:      - name: Update Vercel DATABASE_URL (optional)
+./.github/workflows/rotate-secrets.yml:84:            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
+./.github/workflows/rotate-secrets.yml:95:              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
+./.github/workflows/rotate-secrets.yml:106:          echo "NEW_ADMIN_PASSWORD: ${NEW_ADMIN_PASS}" >> rotation_result.txt
+./drizzle.config.ts:8:    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
+./.env.local:3:ADMIN_PASSWORD="psilostrong.password"
+./.env.local:5:DATABASE_URL="postgres://70832b622f3a452a8c4d1ae045b35776ce78a6be4a89b56752ff62940ac738ce:sk_25vraN3e2-lqO-QwwG0qI@db.prisma.io:5432/postgres?sslmode=require"
+./.env.local:7:PRISMA_DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza18yNXZyYU4zZTItbHFPLVF3d0cwcUkiLCJhcGlfa2V5IjoiMDFLQ0pQTVRBM05LUjlEM1ZNQVhFMUJOMkciLCJ0ZW5hbnRfaWQiOiI3MDgzMmI2MjJmM2E0NTJhOGM0ZDFhZTA0NWIzNTc3NmNlNzhhNmJlNGE4OWI1Njc1MmZmNjI5NDBhYzczOGNlIiwiaW50ZXJuYWxfc2VjcmV0IjoiZjI0MWI5YzYtMzgxMi00NjMxLTgzNDQtNTYzMGQ0YWJkYTYzIn0.fc4G2scYYvnxwdErSS3pPqxVO-1aQkHaZj43ioffzzs"
+./.env.example:4:DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./.env.example:6:ADMIN_PASSWORD="<admin-site-password>"
+./scripts/normalize_db_coming_soon.js:7:  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./scripts/normalize_db_coming_soon.js:9:    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./scripts/pull-vercel-env.sh:8:#   ./scripts/pull-vercel-env.sh DATABASE_URL     # pull only DATABASE_URL
+./scripts/pull-vercel-env.sh:9:#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan/mayaallan-site
+./scripts/pull-vercel-env.sh:10:#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan mayaallan-site
+./scripts/start-dev-pm2.sh:8:: "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+./scripts/start-dev-pm2.sh:9:export DATABASE_URL
+./scripts/check_book_columns.js:7:  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./scripts/check_book_columns.js:9:    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./scripts/create-admin.js:4: *   POSTGRES_URL=... ADMIN_EMAIL=you@domain.com ADMIN_PASSWORD=StrongPass node scripts/create-admin.js
+./scripts/create-admin.js:9:const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./scripts/create-admin.js:11:  console.error("Set POSTGRES_URL or DATABASE_URL first.");
+./scripts/create-admin.js:16:const password = process.env.ADMIN_PASSWORD || "ChangeMe123!";
+./scripts/migrate.js:8: * The script looks for POSTGRES_URL or DATABASE_URL.
+./scripts/migrate.js:15:const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./scripts/migrate.js:17:  console.error("ERROR: Set POSTGRES_URL or DATABASE_URL before running migrations.");
+./scripts/backup_book.js:8:  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./scripts/backup_book.js:10:    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./.devcontainer/devcontainer.json:10:    "OPENAI_API_KEY": "${codespaces:secrets.OPENAI_API_KEY}"
+./README.md:33:   - Set the `DATABASE_URL` in `.env`:
+./README.md:36:     DATABASE_URL="postgresql://user:password@host:5432/dbname?schema=public"
+./README.md:56:3. Set the `DATABASE_URL` environment variable in Vercel Project Settings.
+./src/db/index.ts:3:// If DATABASE_URL/POSTGRES_URL is missing, `db` is a dummy proxy that throws at runtime when used.
+./src/db/index.ts:8:const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./src/db/index.ts:23:          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./src/db/index.ts:30:          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./start-dev-tmux.sh:10:export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./start-dev-tmux.sh:11:echo "Using DATABASE_URL=${DATABASE_URL}"
+./finish-housekeeping.log:63:Scanning git history for high-risk token patterns (VERCEL_OIDC_TOKEN, SESSION_SECRET, DATABASE_URL)
+./finish-housekeeping.log:65:+      - name: Update Vercel DATABASE_URL (optional)
+./finish-housekeeping.log:66:+            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
+./finish-housekeeping.log:67:+              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
+./finish-housekeeping.log:68:+  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:69:+    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./finish-housekeeping.log:70:+  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:71:+    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./finish-housekeeping.log:72:+  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:73:+    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./finish-housekeeping.log:74:+  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:75:+    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./finish-housekeeping.log:76:+  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:77:+    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./finish-housekeeping.log:78:+  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:79:+    console.error("Error: set POSTGRES_URL or DATABASE_URL in your environment.");
+./finish-housekeeping.log:80:+  process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5433/postgres";
+./finish-housekeeping.log:81:-    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
+./finish-housekeeping.log:82:+    return { status: "error", message: "Database not configured. Set POSTGRES_URL/DATABASE_URL." };
+./finish-housekeeping.log:83:+  const raw = process.env.SESSION_SECRET ?? process.env.ADMIN_PASSWORD;
+./finish-housekeeping.log:84:+  if (!raw) throw new Error("Missing SESSION_SECRET or ADMIN_PASSWORD for admin auth/session");
+./finish-housekeeping.log:87:4d4513cef4cf82992a2c603d88bc0803d8721440 chore(dev): avoid printing DATABASE_URL in start script
+./finish-housekeeping.log:88: : "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+./finish-housekeeping.log:89: export DATABASE_URL
+./finish-housekeeping.log:90:-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:91:0a0f72d6750ef53457be1e0baafd306021df03ea chore(dev): avoid printing DATABASE_URL in start script
+./finish-housekeeping.log:92: : "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+./finish-housekeeping.log:93: export DATABASE_URL
+./finish-housekeeping.log:94:-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:95:+: "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+./finish-housekeeping.log:96:+export DATABASE_URL
+./finish-housekeeping.log:97:+echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:98:+: "${DATABASE_URL:=postgres://postgres:testpass@localhost:5433/postgres}"
+./finish-housekeeping.log:99:+export DATABASE_URL
+./finish-housekeeping.log:100:+echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:101:-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
+./finish-housekeeping.log:102:+DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./finish-housekeeping.log:104:-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
+./finish-housekeeping.log:105:+DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./finish-housekeeping.log:107:+#   ./scripts/pull-vercel-env.sh DATABASE_URL     # pull only DATABASE_URL
+./finish-housekeeping.log:108:+#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan/mayaallan-site
+./finish-housekeeping.log:109:+#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan mayaallan-site
+./finish-housekeeping.log:110:+#   ./scripts/pull-vercel-env.sh DATABASE_URL     # pull only DATABASE_URL
+./finish-housekeeping.log:111:+#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan/mayaallan-site
+./finish-housekeeping.log:112:+#   ./scripts/pull-vercel-env.sh DATABASE_URL mallan mayaallan-site
+./finish-housekeeping.log:113:+export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./finish-housekeeping.log:114:+echo "Using DATABASE_URL=${DATABASE_URL}"
+./finish-housekeeping.log:115:+export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./finish-housekeeping.log:116:+echo "Using DATABASE_URL=${DATABASE_URL}"
+./finish-housekeeping.log:119:-a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+./finish-housekeeping.log:120:- * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
+./finish-housekeeping.log:121:-  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+./finish-housekeeping.log:122:-    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
+./finish-housekeeping.log:123:- * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
+./finish-housekeeping.log:124:-  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+./finish-housekeeping.log:125:-    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
+./finish-housekeeping.log:126:+      - name: Update Vercel DATABASE_URL (optional)
+./finish-housekeeping.log:127:+            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
+./finish-housekeeping.log:128:+              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
+./finish-housekeeping.log:129:+      - name: Update Vercel DATABASE_URL (optional)
+./finish-housekeeping.log:130:+            | jq -r --arg K "DATABASE_URL" '.env[]? | select(.key==$K) | .id' || true)
+./finish-housekeeping.log:131:+              -d "{\"key\":\"DATABASE_URL\",\"value\":\"${NEW_DB_URL}\",\"target\":[\"production\"],\"type\":\"encrypted\"}" | jq -r .
+./finish-housekeeping.log:132:+ * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
+./finish-housekeeping.log:133:+  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+./finish-housekeeping.log:134:+    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
+./finish-housekeeping.log:135:+ * Make sure DATABASE_URL or POSTGRES_URL is set in environment.
+./finish-housekeeping.log:136:+  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+./finish-housekeeping.log:137:+    console.error("ERROR: Set DATABASE_URL or POSTGRES_URL in env before running.");
+./finish-housekeeping.log:142: - The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
+./finish-housekeeping.log:143: - The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
+./finish-housekeeping.log:144:+- The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
+./finish-housekeeping.log:145:+const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:146:+  console.error("Set POSTGRES_URL or DATABASE_URL first.");
+./finish-housekeeping.log:147:+ * The script looks for POSTGRES_URL or DATABASE_URL.
+./finish-housekeeping.log:148:+const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:149:+  console.error("ERROR: Set POSTGRES_URL or DATABASE_URL before running migrations.");
+./finish-housekeeping.log:150:+- The scripts read `POSTGRES_URL` first, then `DATABASE_URL`.
+./finish-housekeeping.log:151:+const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:152:+  console.error("Set POSTGRES_URL or DATABASE_URL first.");
+./finish-housekeeping.log:153:+ * The script looks for POSTGRES_URL or DATABASE_URL.
+./finish-housekeeping.log:154:+const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+./finish-housekeeping.log:155:+  console.error("ERROR: Set POSTGRES_URL or DATABASE_URL before running migrations.");
+./finish-housekeeping.log:156:+a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+./finish-housekeeping.log:157:+a4e8353 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+./finish-housekeeping.log:158:-const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:159:-          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:160:-          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:161:- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:162:-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:163:-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:164:- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:165:-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:166:-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:167:+ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:168:+  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:169:+      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:170:+ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:171:+  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:172:+      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:173:a4e835384b9d39008df0036768ff9f531a1db05c fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+./finish-housekeeping.log:174:- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:175:+// If DATABASE_URL/POSTGRES_URL is missing, `db` is a dummy proxy that throws at runtime when used.
+./finish-housekeeping.log:176:-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:177:+const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:178:-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:179:+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:180:+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:181:8126d6fc92df6850aae700e4245d174731b898b5 fix(db): export named 'db' (guarded DB proxy for missing DATABASE_URL)
+./finish-housekeeping.log:182:- * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:183:+// If DATABASE_URL/POSTGRES_URL is missing, `db` is a dummy proxy that throws at runtime when used.
+./finish-housekeeping.log:184:-  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:185:+const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:186:-      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:187:+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:188:+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:189:+const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:190:+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:191:+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:192:+const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:193:+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:194:+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:195:+ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:196:-const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:197:+  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:198:+      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:199:-          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:200:-          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:201:+ * This file intentionally does NOT throw at import time if POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:202:-const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:203:+  return process.env.POSTGRES_URL ?? process.env.DATABASE_URL ?? null;
+./finish-housekeeping.log:204:+      "Database not configured: POSTGRES_URL or DATABASE_URL not set. DB calls will throw at runtime if invoked."
+./finish-housekeeping.log:205:-          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:206:-          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:207:-DATABASE_URL
+./finish-housekeeping.log:208:-DATABASE_URL
+./finish-housekeeping.log:209:+DATABASE_URL
+./finish-housekeeping.log:210:+DATABASE_URL
+./finish-housekeeping.log:211:-Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:212:-Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:213:-Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:214:-Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:215:b2f1c10bd605076bde2baec10bb44e1ca7bfc097 chore(db): avoid throwing on import when DATABASE_URL missing; export dummy db proxy
+./finish-housekeeping.log:216: const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:217:-  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
+./finish-housekeeping.log:218:+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:219:+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:220:7f3ac019ca0883983f8b7c751396f20d42a03b19 chore(db): avoid throwing on import when DATABASE_URL missing; export dummy db proxy
+./finish-housekeeping.log:221: const connectionString = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+./finish-housekeeping.log:222:-  throw new Error("Missing POSTGRES_URL or DATABASE_URL");
+./finish-housekeeping.log:223:+          `Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods (attempted to access '${String(
+./finish-housekeeping.log:224:+          "Database not configured. POSTGRES_URL or DATABASE_URL must be set before calling database methods."
+./finish-housekeeping.log:225:+Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:226:+Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:227:+Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:228:+Error: Missing POSTGRES_URL or DATABASE_URL
+./finish-housekeeping.log:231:-    url: process.env.DATABASE_URL!,
+./finish-housekeeping.log:232:+    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
+./finish-housekeeping.log:233:-    url: process.env.DATABASE_URL!,
+./finish-housekeeping.log:234:+    url: process.env.POSTGRES_URL ?? process.env.DATABASE_URL!,
+./finish-housekeeping.log:235:-const connectionString = process.env.DATABASE_URL;
+
+List any committed .env files:
+
+=== Prisma residue check ===
+No prisma/ dir found
+
+=== Drizzle migrations / meta ===
+drizzle/ exists, showing migrations and meta snapshots:
+total 68
+drwxrwxrwx+  5 codespace root       4096 Dec 23 13:22 .
+drwxrwxrwx+ 15 codespace root       4096 Dec 23 13:22 ..
+-rw-rw-rw-   1 codespace root        184 Dec 23 01:13 0000_naive_silver_centurion.sql
+-rw-rw-rw-   1 codespace root        172 Dec 23 01:13 0000_naive_silver_centurion.sql.applied
+-rw-rw-rw-   1 codespace root      16673 Dec 23 01:13 0000_schema.sql
+-rw-rw-rw-   1 codespace root        411 Dec 23 01:13 0001_shiny_epoch.sql
+-rw-rw-rw-   1 codespace codespace  2422 Dec 23 10:40 0002_colorful_impossible_man.sql
+-rw-rw-rw-   1 codespace codespace   738 Dec 23 10:09 0002_normalize_coming_soon.sql
+-rw-rw-rw-   1 codespace codespace   141 Dec 23 11:04 0003_confirm_coming_soon_is_present.sql
+-rw-rw-rw-   1 codespace root         94 Dec 23 01:13 1766056613_add_book_retailer_unique.sql
+drwxr-xr-x+  2 codespace codespace  4096 Dec 23 11:23 meta
+drwxr-xr-x+  2 codespace codespace  4096 Dec 23 03:53 meta.bak
+drwxrwxrwx+  2 codespace codespace  4096 Dec 23 10:09 migrations
+total 12
+drwxrwxrwx+ 2 codespace codespace 4096 Dec 23 10:09 .
+drwxrwxrwx+ 5 codespace root      4096 Dec 23 13:22 ..
+-rw-rw-rw-  1 codespace codespace 1644 Dec 23 10:09 0002_normalize_slug_and_coming_soon.sql
+total 72
+drwxr-xr-x+ 2 codespace codespace  4096 Dec 23 11:23 .
+drwxrwxrwx+ 5 codespace root       4096 Dec 23 13:22 ..
+-rw-rw-rw-  1 codespace codespace 17639 Dec 23 04:08 0000_snapshot.json
+-rw-rw-rw-  1 codespace codespace 17679 Dec 23 04:08 0001_snapshot.json
+-rw-rw-rw-  1 codespace codespace 17599 Dec 23 11:23 0002_snapshot.json
+-rw-rw-rw-  1 codespace codespace   506 Dec 23 11:23 _journal.json
+
+=== package.json scripts (brief) ===
+ - dev: next dev
+ - build: next build
+ - start: next start
+ - lint: eslint --config eslint.config.cjs --ext .js,.jsx,.ts,.tsx .
+ - drizzle:generate: drizzle-kit generate
+ - drizzle:migrate: drizzle-kit migrate
+
+=== Build & Typecheck ===
+Running: npm ci (fast) and CI=true npm run build; npx tsc --noEmit
+npm error code EUSAGE
+npm error
+npm error The `npm ci` command can only install with an existing package-lock.json or
+npm error npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or
+npm error later to generate a package-lock.json file, then try again.
+npm error
+npm error Clean install a project
+npm error
+npm error Usage:
+npm error npm ci
+npm error
+npm error Options:
+npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+npm error [--no-bin-links] [--no-fund] [--dry-run]
+npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm error [--workspaces] [--include-workspace-root] [--install-links]
+npm error
+npm error aliases: clean-install, ic, install-clean, isntall-clean
+npm error
+npm error Run "npm help ci" for more info
+npm error A complete log of this run can be found in: /home/codespace/.npm/_logs/2025-12-23T13_23_45_594Z-debug-0.log
+npm ci returned non-zero (see repo-main-check.log)
+
+> mayaallan-site@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ⨯ books/page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.
+Next.js build worker exited with code: 1 and signal: null
+npm build returned non-zero (see repo-main-check.log)
+src/lib/db.ts(9,16): error TS1005: ',' expected.
+src/lib/db.ts(9,17): error TS1134: Variable declaration expected.
+tsc errors (see repo-main-check.log)
+
+No 'pgtest' container running. To perform DB checks, start a local postgres (see ensure-postgres.sh).
+
+=== Quick code checks for DB usage and alias problems ===
+
+=== Loose backups/logs/dumps (top-level) ===
+./JSON
+./repo-main-check.log
+./book_backup.csv
+./backups/after-finalize-2025-12-23.dump
+./backups/before-finalize-2025-12-23.dump
+./drizzle/meta.bak
+./finish-housekeeping.log
+
+=== devcontainer.json ===
+mkdir -p .devcontainer
+
+cat > .devcontainer/devcontainer.json <<'JSON'
+{
+  "name": "mayaallan-codespace",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:20",
+  "postCreateCommand": "npm install -g @openai/codex --unsafe-perm=true || true",
+  "forwardPorts": [3000],
+  "remoteEnv": {
+    "OPENAI_API_KEY": "${codespaces:secrets.OPENAI_API_KEY}"
+  },
+  "extensions": [
+    "ms-vscode.vscode-typescript-next"
+  ]
+}
+JSON
+
+git add .devcontainer/devcontainer.json
+git commit -m "chore(devcontainer): add container config for Codespaces + Codex CLI"
+git push
+
+=== Quick grep for keys/secrets (scan) ===
+./.env.local:5:DATABASE_URL="postgres://70832b622f3a452a8c4d1ae045b35776ce78a6be4a89b56752ff62940ac738ce:sk_25vraN3e2-lqO-QwwG0qI@db.prisma.io:5432/postgres?sslmode=require"
+./.env.local:7:PRISMA_DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza18yNXZyYU4zZTItbHFPLVF3d0cwcUkiLCJhcGlfa2V5IjoiMDFLQ0pQTVRBM05LUjlEM1ZNQVhFMUJOMkciLCJ0ZW5hbnRfaWQiOiI3MDgzMmI2MjJmM2E0NTJhOGM0ZDFhZTA0NWIzNTc3NmNlNzhhNmJlNGE4OWI1Njc1MmZmNjI5NDBhYzczOGNlIiwiaW50ZXJuYWxfc2VjcmV0IjoiZjI0MWI5YzYtMzgxMi00NjMxLTgzNDQtNTYzMGQ0YWJkYTYzIn0.fc4G2scYYvnxwdErSS3pPqxVO-1aQkHaZj43ioffzzs"
+./.env.example:4:DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./repo-main-check.log:23:./.env.local:5:DATABASE_URL="postgres://70832b622f3a452a8c4d1ae045b35776ce78a6be4a89b56752ff62940ac738ce:sk_25vraN3e2-lqO-QwwG0qI@db.prisma.io:5432/postgres?sslmode=require"
+./repo-main-check.log:24:./.env.local:7:PRISMA_DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza18yNXZyYU4zZTItbHFPLVF3d0cwcUkiLCJhcGlfa2V5IjoiMDFLQ0pQTVRBM05LUjlEM1ZNQVhFMUJOMkciLCJ0ZW5hbnRfaWQiOiI3MDgzMmI2MjJmM2E0NTJhOGM0ZDFhZTA0NWIzNTc3NmNlNzhhNmJlNGE4OWI1Njc1MmZmNjI5NDBhYzczOGNlIiwiaW50ZXJuYWxfc2VjcmV0IjoiZjI0MWI5YzYtMzgxMi00NjMxLTgzNDQtNTYzMGQ0YWJkYTYzIn0.fc4G2scYYvnxwdErSS3pPqxVO-1aQkHaZj43ioffzzs"
+./repo-main-check.log:25:./.env.example:4:DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./repo-main-check.log:47:./README.md:36:     DATABASE_URL="postgresql://user:password@host:5432/dbname?schema=public"
+./repo-main-check.log:53:./start-dev-tmux.sh:10:export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./repo-main-check.log:54:./start-dev-tmux.sh:11:echo "Using DATABASE_URL=${DATABASE_URL}"
+./repo-main-check.log:79:./finish-housekeeping.log:90:-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./repo-main-check.log:83:./finish-housekeeping.log:94:-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./repo-main-check.log:86:./finish-housekeeping.log:97:+echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./repo-main-check.log:89:./finish-housekeeping.log:100:+echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./repo-main-check.log:90:./finish-housekeeping.log:101:-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
+./repo-main-check.log:91:./finish-housekeeping.log:102:+DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./repo-main-check.log:92:./finish-housekeeping.log:104:-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
+./repo-main-check.log:93:./finish-housekeeping.log:105:+DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./repo-main-check.log:100:./finish-housekeeping.log:113:+export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./repo-main-check.log:101:./finish-housekeeping.log:114:+echo "Using DATABASE_URL=${DATABASE_URL}"
+./repo-main-check.log:102:./finish-housekeeping.log:115:+export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./repo-main-check.log:103:./finish-housekeeping.log:116:+echo "Using DATABASE_URL=${DATABASE_URL}"
+./README.md:36:     DATABASE_URL="postgresql://user:password@host:5432/dbname?schema=public"
+./start-dev-tmux.sh:10:export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./start-dev-tmux.sh:11:echo "Using DATABASE_URL=${DATABASE_URL}"
+./finish-housekeeping.log:90:-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:94:-echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:97:+echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:100:+echo "Starting Next dev (HOST=0.0.0.0 PORT=3000) with DATABASE_URL=${DATABASE_URL#*:}"
+./finish-housekeeping.log:101:-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
+./finish-housekeeping.log:102:+DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./finish-housekeeping.log:104:-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
+./finish-housekeeping.log:105:+DATABASE_URL="postgres://postgres:your_local_password@localhost:5433/postgres"
+./finish-housekeeping.log:113:+export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./finish-housekeeping.log:114:+echo "Using DATABASE_URL=${DATABASE_URL}"
+./finish-housekeeping.log:115:+export DATABASE_URL="postgres://postgres:testpass@localhost:5433/postgres"
+./finish-housekeeping.log:116:+echo "Using DATABASE_URL=${DATABASE_URL}"
+./finish-housekeeping.log:261:-DATABASE_URL="PASTE_THE_DATABASE_URL_HERE"
+./finish-housekeeping.log:262:-DATABASE_URL="PASTE_THE_DATABASE_URL_HERE"
+
+=== repo-main-check.sh: FINISHED (Tue Dec 23 13:23:56 UTC 2025) ===
+Report written to repo-main-check.log
+
+If you stashed earlier you can pop with: git stash list ; git stash pop || true
