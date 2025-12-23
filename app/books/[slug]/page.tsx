@@ -1,7 +1,8 @@
-// app/books/[slug]/page.tsx
+// app/books/[slug]/page.tsx (Server component) — corrected to use eq()
 import React from "react";
-import { db } from "../../../src/db/index";
-import { book, bookRetailer, retailer } from "../../../src/db/schema";
+import { db } from "@/src/db/index";
+import { book, bookRetailer, retailer } from "@/src/db/schema";
+import { eq } from "drizzle-orm";
 
 type Params = { params: { slug: string } };
 
@@ -22,7 +23,7 @@ async function getBookBySlug(slug: string) {
       isPublished: book.isPublished,
     })
     .from(book)
-    .where(book.slug.eq(slug))
+    .where(eq(book.slug, slug))
     .limit(1)
     .then((r) => r[0]);
 
@@ -34,10 +35,10 @@ async function getBookBySlug(slug: string) {
       retailerName: retailer.name,
     })
     .from(bookRetailer)
-    .leftJoin(retailer, retailer.id.eq(bookRetailer.retailerId))
-    .where(bookRetailer.bookId.eq(b.id))
-    .where(bookRetailer.isActive.eq(true))
-    .where(retailer.isActive.eq(true));
+    .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
+    .where(eq(bookRetailer.bookId, b.id))
+    .where(eq(bookRetailer.isActive, true))
+    .where(eq(retailer.isActive, true));
 
   return { ...b, retailers: links };
 }

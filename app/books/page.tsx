@@ -1,8 +1,9 @@
-// app/books/page.tsx (Server component)
+// app/books/page.tsx (Server component) — corrected to use eq()
 import Link from "next/link";
 import React from "react";
-import { db } from "../../src/db/index";
-import { book, bookRetailer, retailer } from "../../src/db/schema";
+import { db } from "@/src/db/index";
+import { book, bookRetailer, retailer } from "@/src/db/schema";
+import { eq } from "drizzle-orm";
 
 type BookWithLinks = {
   id: number;
@@ -23,7 +24,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
       allowDirectSale: book.allowDirectSale,
     })
     .from(book)
-    .where(book.isPublished.eq(true))
+    .where(eq(book.isPublished, true))
     .orderBy(book.createdAt.desc())
     .limit(20);
 
@@ -37,10 +38,10 @@ async function getBooks(): Promise<BookWithLinks[]> {
       retailerName: retailer.name,
     })
     .from(bookRetailer)
-    .leftJoin(retailer, retailer.id.eq(bookRetailer.retailerId))
+    .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
     .where(bookRetailer.bookId.in(ids))
-    .where(bookRetailer.isActive.eq(true))
-    .where(retailer.isActive.eq(true));
+    .where(eq(bookRetailer.isActive, true))
+    .where(eq(retailer.isActive, true));
 
   const linksByBook = new Map<number, { retailer: string; url: string }[]>();
   for (const l of links) {
