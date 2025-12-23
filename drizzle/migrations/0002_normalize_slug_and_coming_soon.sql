@@ -42,7 +42,7 @@ BEGIN
 END
 $$;
 
--- 5) Normalize coming_soon: set to false when book is published OR direct sale enabled OR has an active retailer link
+-- 5) Normalize coming_soon: set to false when book is published OR direct_sale enabled OR has an active retailer link
 UPDATE public.book
 SET coming_soon = false
 WHERE coming_soon = true
