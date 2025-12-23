@@ -1,4 +1,11 @@
-// src/app/admin/books/new/BookForm.tsx
+# make sure you're on the branch you're working on
+git checkout cleanup/streamline-app
+
+# create directories if needed
+mkdir -p src/app/admin/books/new
+
+# write the BookForm.tsx file (paste mode)
+cat > src/app/admin/books/new/BookForm.tsx <<'EOF'
 'use client';
 
 import React, { useRef, useState } from 'react';
@@ -316,3 +323,4 @@ function RetailerEditor({ retailers, setRetailers }: { retailers: Retailer[]; se
     </div>
   );
 }
+EOF
