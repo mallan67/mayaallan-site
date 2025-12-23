@@ -1,0 +1,17 @@
+# from repo root
+mkdir -p .devcontainer
+
+cat > .devcontainer/devcontainer.json <<'JSON'
+{
+  "name": "mayaallan-codespace",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:20",
+  "postCreateCommand": "npm install -g @openai/codex || npm install -g @openai/codex --unsafe-perm=true",
+  "forwardPorts": [3000],
+  "remoteEnv": {
+    "OPENAI_API_KEY": "${codespaces:secrets.OPENAI_API_KEY}"
+  },
+  "extensions": [
+    "ms-vscode.vscode-typescript-next"
+  ]
+}
+JSON
