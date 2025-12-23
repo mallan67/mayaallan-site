@@ -25,7 +25,7 @@ async function getBookBySlug(slug: string) {
     .from(book)
     .where(eq(book.slug, slug))
     .limit(1)
-    .then((r) => r[0]);
+    .then((r: any[]) => r[0]);
 
   if (!b) return null;
 
