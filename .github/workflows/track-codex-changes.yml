@@ -1,0 +1,50 @@
+name: "Track Codex changes (PR file list)"
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  list_changed_files:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: List PR files and comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.info("No pull request in context.");
+              return;
+            }
+
+            // Get changed files for this PR (paginated)
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+            });
+
+            if (!files || files.length === 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: "Codex change review — no files changed.",
+              });
+              return;
+            }
+
+            const fileList = files.map(f => `- \`${f.filename}\` (${f.status})`).join("\n");
+            const body = `**Codex change review — files changed**\n\n${fileList}\n\n**Watchlist (suggested)**:\n- \`src/db/schema.ts\`\n- \`drizzle/\` migrations\n- \`src/db/index.ts\`\n- \`src/app/books/[slug]/page.tsx\`\n- \`src/app/api/admin/**\`\n- \`src/app/admin/**\`\n\n_If you want more detailed diffs or automatic tests on these files I can provide those workflows too._`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body,
+            });
