@@ -1,5 +1,5 @@
 // src/app/books/page.tsx
-import { eq, desc } from "drizzle-orm";
+import { eq, desc , inArray } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
@@ -40,7 +40,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
     })
     .from(bookRetailer)
     .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
-    .where(bookRetailer.bookId.in(ids))
+    .where(inArray(bookRetailer.bookId, ids))
     .where(eq(bookRetailer.isActive, true))
     .where(eq(retailer.isActive, true));
 
