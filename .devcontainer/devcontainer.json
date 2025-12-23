@@ -4,8 +4,9 @@
   "features": {
     "ghcr.io/devcontainers/features/git-lfs:1": {}
   },
-  "postCreateCommand": "npm install -g @openai/codex --unsafe-perm=true || true",
-  "forwardPorts": [3000],
+  "forwardPorts": [
+    3000
+  ],
   "remoteEnv": {
     "OPENAI_API_KEY": "${codespaces:secrets.OPENAI_API_KEY}"
   },
@@ -17,4 +18,3 @@
     }
   }
 }
-
