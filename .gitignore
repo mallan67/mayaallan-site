@@ -34,3 +34,35 @@ src/db/schema.ts.bak*
 .env.development.local
 README.md.bak
 rotate-db-password.sh
+# Local envs
+.env
+.env.local
+.env.*.local
+
+# Dumps and backups
+backups/
+*.dump
+backup_*.dump
+before-migrations-*.dump
+book_backup.csv
+
+# Editor / OS / build
+.DS_Store
+node_modules/
+.next/
+.vscode/
+.idea/
+
+# Temp, logs, tools
+*.bak
+*.log
+pnpm-debug.log
+pnpm-fix.log
+pnpm-install-ndjson.log
+
+# package manager lock backups
+package-lock.json.bak
+pnpm-lock.yaml.bak
+
+# misc
+JSON
