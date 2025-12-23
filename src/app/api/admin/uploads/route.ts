@@ -2,25 +2,23 @@
 import { NextResponse } from "next/server";
 import { requireAdminOrThrow } from "@/lib/adminAuth";
 
-export const runtime = "nodejs"; // server-side
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  // Will throw a NextResponse (401) if not an admin
+  // Protect route
   await requireAdminOrThrow();
 
-  // Parse multipart/form-data
+  // Parse form and file
   const form = await req.formData();
   const file = form.get("file") as File | null;
-  if (!file) {
-    return NextResponse.json({ ok: false, error: "No file provided" }, { status: 400 });
-  }
+  if (!file) return NextResponse.json({ ok: false, error: "No file provided" }, { status: 400 });
 
   const rawName = (form.get("filename")?.toString() ?? (file instanceof File ? file.name : `upload-${Date.now()}`));
   const safeName = rawName.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9_\-\.]/g, "").toLowerCase();
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  // If S3 env provided, upload to S3
+  // If S3 variables are provided, upload to S3
   if (process.env.AWS_S3_BUCKET && process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
     try {
       const { S3Client, PutObjectCommand } = await import("@aws-sdk/client-s3");
@@ -41,7 +39,6 @@ export async function POST(req: Request) {
         ACL: "public-read",
       }));
 
-      // Public S3 URL (standard pattern). If you use a CDN or custom domain, change this.
       const url = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION || "us-east-1"}.amazonaws.com/${key}`;
       return NextResponse.json({ ok: true, url });
     } catch (err: any) {
@@ -50,7 +47,7 @@ export async function POST(req: Request) {
     }
   }
 
-  // Fallback: save to public/uploads (persisted in repo for local dev)
+  // Disk fallback (local dev) — writes to public/uploads
   try {
     const path = await import("path");
     const fs = await import("fs/promises");
