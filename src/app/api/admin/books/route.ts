@@ -21,12 +21,32 @@ const BookPayload = z.object({
   allowDirectSale: z.boolean().optional(),
   isPublished: z.boolean().optional(),
   comingSoon: z.boolean().optional(),
-  salesMetadata: z.record(z.string(), z.any()).optional(),
 });
 
 export async function GET() {
   requireAdminOrThrow();
-  const rows = await db.select().from(book).limit(200);
+  const rows = await db.select({
+      id: book.id,
+      slug: book.slug,
+      title: book.title,
+      subtitle1: book.subtitle1,
+      subtitle2: book.subtitle2,
+      tags: book.tags,
+      isbn: book.isbn,
+      shortDescription: book.shortDescription,
+      longDescription: book.longDescription,
+      coverImageUrl: book.coverImageUrl,
+      backCoverImageUrl: book.backCoverImageUrl,
+      allowDirectSale: book.allowDirectSale,
+      stripeProductId: book.stripeProductId,
+      paypalProductId: book.paypalProductId,
+      isPublished: book.isPublished,
+      comingSoon: book.comingSoon,
+      seoTitle: book.seoTitle,
+      seoDescription: book.seoDescription,
+      createdAt: book.createdAt,
+      updatedAt: book.updatedAt
+    }) . ".from(book)".limit(200);
   return NextResponse.json({ ok: true, data: rows });
 }
 
@@ -50,7 +70,6 @@ export async function POST(req: Request) {
     allowDirectSale: !!p.allowDirectSale,
     isPublished: !!p.isPublished,
     comingSoon: !!p.comingSoon,
-    salesMetadata: p.salesMetadata ?? {},
   };
 
   if (p.id) {

@@ -8,7 +8,28 @@ import { book } from "../../../db/schema";
  */
 export async function GET() {
   try {
-    const rows = await db.select().from(book).limit(50);
+    const rows = await db.select({
+      id: book.id,
+      slug: book.slug,
+      title: book.title,
+      subtitle1: book.subtitle1,
+      subtitle2: book.subtitle2,
+      tags: book.tags,
+      isbn: book.isbn,
+      shortDescription: book.shortDescription,
+      longDescription: book.longDescription,
+      coverImageUrl: book.coverImageUrl,
+      backCoverImageUrl: book.backCoverImageUrl,
+      allowDirectSale: book.allowDirectSale,
+      stripeProductId: book.stripeProductId,
+      paypalProductId: book.paypalProductId,
+      isPublished: book.isPublished,
+      comingSoon: book.comingSoon,
+      seoTitle: book.seoTitle,
+      seoDescription: book.seoDescription,
+      createdAt: book.createdAt,
+      updatedAt: book.updatedAt
+    }) . ".from(book)".limit(50);
     return NextResponse.json(rows);
   } catch (err: any) {
     console.error("GET /api/books error:", err);

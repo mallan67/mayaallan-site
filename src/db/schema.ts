@@ -82,7 +82,6 @@ export const book = pgTable("book", {
   comingSoon: boolean("coming_soon").default(false).notNull(),
 
   salesMetadata: jsonb("sales_metadata").default(sql`'{}'::jsonb`).notNull(),
-  seo: jsonb("seo").default(sql`'{}'::jsonb`).notNull(),
 
   seoTitle: text("seo_title"),
   seoDescription: text("seo_description"),

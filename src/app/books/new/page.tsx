@@ -24,7 +24,6 @@ export default async function NewBooksPage() {
       paypalProductId: book.paypalProductId,
       isPublished: book.isPublished,
       comingSoon: book.comingSoon,
-      seo: book.seo,
       seoTitle: book.seoTitle,
       seoDescription: book.seoDescription,
       createdAt: book.createdAt,
