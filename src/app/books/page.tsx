@@ -34,17 +34,47 @@ async function getBooks(): Promise<BookWithLinks[]> {
   const ids = rows.map((r: any) => r.id);
   if (ids.length === 0) return [];
 
-  const links = await db
+  
+  // Fetch active book-retailer link rows for the requested book ids
+  const linksRows = await db
     .select({
       bookId: bookRetailer.bookId,
       url: bookRetailer.url,
-      retailerName: retailer.name,
+      retailerId: bookRetailer.retailerId,
       isActive: bookRetailer.isActive,
     })
     .from(bookRetailer)
     .where(eq(bookRetailer.isActive, true))
-    .where(inArray(bookRetailer.bookId, ids))
-    .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
+    .where(inArray(bookRetailer.bookId, ids));
+
+  // Fetch retailer data for the retailers referenced
+  const retailerIds = [...new Set(linksRows.map((r: any) => r.retailerId))];
+  const retailersMap = new Map<number, { name?: string; logoUrl?: string }>();
+
+  if (retailerIds.length > 0) {
+    const retailerRows = await db
+      .select({
+        id: retailer.id,
+        name: retailer.name,
+        logoUrl: retailer.logoUrl,
+      })
+      .from(retailer)
+      .where(inArray(retailer.id, retailerIds));
+
+    for (const rr of retailerRows) {
+      retailersMap.set(rr.id, { name: rr.name, logoUrl: rr.logoUrl });
+    }
+  }
+
+  // Merge retailer info into link rows
+  const links = linksRows.map((lr: any) => ({
+    bookId: lr.bookId,
+    url: lr.url,
+    retailerName: retailersMap.get(lr.retailerId)?.name ?? "",
+    retailerLogo: retailersMap.get(lr.retailerId)?.logoUrl ?? null,
+    isActive: lr.isActive,
+    retailerId: lr.retailerId,
+  }));
 
 const linksByBook = new Map<number, { retailer: string; url: string }[]>();
   for (const l of links) {
