@@ -1,37 +1,20 @@
 // src/app/books/new/page.tsx
 import { desc } from "drizzle-orm";
 import Link from "next/link";
-import { db } from "@/db";
 import { book } from "@/db/schema";
 
 export default async function NewBooksPage() {
   // server-side: fetch recent books but SELECT explicitly (omit salesMetadata)
-  const books = await db
-    .select({
-      id: book.id,
-      slug: book.slug,
-      title: book.title,
-      subtitle1: book.subtitle1,
-      subtitle2: book.subtitle2,
-      tags: book.tags,
-      isbn: book.isbn,
-      shortDescription: book.shortDescription,
-      longDescription: book.longDescription,
-      coverImageUrl: book.coverImageUrl,
-      backCoverImageUrl: book.backCoverImageUrl,
-      allowDirectSale: book.allowDirectSale,
-      stripeProductId: book.stripeProductId,
-      paypalProductId: book.paypalProductId,
-      isPublished: book.isPublished,
-      comingSoon: book.comingSoon,
-      seoTitle: book.seoTitle,
-      seoDescription: book.seoDescription,
-      createdAt: book.createdAt,
-      updatedAt: book.updatedAt,
-    })
-    .from(book)
-    .orderBy(desc(book.createdAt))
-    .limit(50);
+  let books: any[];
+  if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL) {
+    books = [];
+  } else {
+    const { db } = await import('@/lib/db');
+    books = await db.select()
+      .from(book)
+      .orderBy(desc(book.createdAt))
+      .limit(50);
+  }
 
   return (
     <div className="container mx-auto py-8">
