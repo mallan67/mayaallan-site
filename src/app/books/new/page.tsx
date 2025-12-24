@@ -24,7 +24,9 @@ type BookRow = {
   updatedAt?: string | null;
 };
 
-export default async function NewBooksPage() {
+export const dynamic = 'force-dynamic';
+
+
   // Short-circuit when you intentionally disable DB queries
   if (process.env.DISABLE_DB_QUERIES === "true") {
     return (
