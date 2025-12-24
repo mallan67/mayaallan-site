@@ -2,13 +2,25 @@ import { eq } from "drizzle-orm";
 import React from "react";
 import { notFound } from "next/navigation";
 
-import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
 
 
 type Props = { params: { slug: string } };
 
 export default async function BookPage({ params: { slug } }: Props) {
+  // If no DB configured, render a safe fallback so build/prerendering succeeds.
+  if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL) {
+    return (
+      <main style={{ maxWidth: 900, margin: "2rem auto", padding: 20 }}>
+        <h1>Book</h1>
+        <p>Book data is not available because the database is not configured.</p>
+        <p>Slug: <strong>{slug}</strong></p>
+      </main>
+    );
+  }
+
+  // Dynamically import DB only at runtime when DB config is present
+  const { db } = await import('@/lib/db');
   // Fetch the book by slug
   const rows = await db
     .select({
