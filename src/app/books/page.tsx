@@ -14,6 +14,7 @@ type BookWithLinks = {
 };
 
 async function getBooks(): Promise<BookWithLinks[]> {
+  if (process.env.DISABLE_DB_QUERIES === 'true') return [];
   if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL) {
     return [];
   }
