@@ -43,8 +43,10 @@ async function getBooks(): Promise<BookWithLinks[]> {
     })
     .from(bookRetailer)
     .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
-    .where(inArray(bookRetailer.bookId, ids))
+  .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
     .where(eq(bookRetailer.isActive, true))
+    .where(inArray(bookRetailer.bookId, ids));
+
   const linksByBook = new Map<number, { retailer: string; url: string }[]>();
   for (const l of links) {
     const arr = linksByBook.get(l.bookId) ?? [];
