@@ -1,5 +1,5 @@
 // src/app/books/page.tsx
-import { eq, desc , inArray } from "drizzle-orm";
+import { eq, desc, inArray, and } from "drizzle-orm";
 import Link from "next/link";
 import { book, bookRetailer, retailer } from "@/db/schema";
 
@@ -44,38 +44,8 @@ async function getBooks(): Promise<BookWithLinks[]> {
       isActive: bookRetailer.isActive,
     })
     .from(bookRetailer)
-    .where(eq(bookRetailer.isActive, true))
-    .where(inArray(bookRetailer.bookId, ids));
-
-  // Fetch retailer data for the retailers referenced
-  const retailerIds = [...new Set(linksRows.map((r: any) => r.retailerId))];
-  const retailersMap = new Map<number, { name?: string; logoUrl?: string }>();
-
-  if (retailerIds.length > 0) {
-    const retailerRows = await db
-      .select({
-        id: retailer.id,
-        name: retailer.name,
-        logoUrl: retailer.logoUrl,
-      })
-      .from(retailer)
-      .where(inArray(retailer.id, retailerIds));
-
-    for (const rr of retailerRows) {
-      retailersMap.set(rr.id, { name: rr.name, logoUrl: rr.logoUrl });
-    }
-  }
-
-  // Merge retailer info into link rows
-  const links = linksRows.map((lr: any) => ({
-    bookId: lr.bookId,
-    url: lr.url,
-    retailerName: retailersMap.get(lr.retailerId)?.name ?? "",
-    retailerLogo: retailersMap.get(lr.retailerId)?.logoUrl ?? null,
-    isActive: lr.isActive,
-    retailerId: lr.retailerId,
-  }));
-
+    .where(and(eq(bookRetailer.isActive, true), inArray(bookRetailer.bookId, ids)))
+    .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
 const linksByBook = new Map<number, { retailer: string; url: string }[]>();
   for (const l of links) {
     const arr = linksByBook.get(l.bookId) ?? [];
