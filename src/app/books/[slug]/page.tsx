@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Optional: no caching
 import { eq } from "drizzle-orm";
 import React from "react";
 import { notFound } from "next/navigation";
