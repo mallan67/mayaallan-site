@@ -39,3 +39,4 @@ rotate-db-password.sh
 .env.local
 .env.local
 build.log
+public/uploads
