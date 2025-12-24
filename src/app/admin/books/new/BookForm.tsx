@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 
 /**
@@ -165,7 +166,12 @@ export default function BookForm() {
       if (json?.data?.slug) {
         const slugSaved = json.data.slug;
         // open the public page in a new tab
-        window.open(`/books/${slugSaved}`, '_blank');
+        try {
+          window.open(`/books/${slugSaved}`, '_blank');
+        } catch {
+          // fallback: navigate current tab
+          window.location.href = `/books/${slugSaved}`;
+        }
       }
     } catch (err: any) {
       console.error(err);
@@ -216,8 +222,13 @@ export default function BookForm() {
           <input ref={hiddenCoverRef} type="hidden" name="coverImageUrl" />
           {uploading ? <div className="text-sm text-slate-600 mt-2">Uploading cover…</div> : null}
           {coverImageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={coverImageUrl} alt="Cover preview" className="mt-2 w-40 h-56 object-cover rounded border" />
+            <Image
+              src={coverImageUrl}
+              alt="Cover preview"
+              className="mt-2 w-40 h-56 object-cover rounded border"
+              width={160}
+              height={224}
+            />
           ) : (
             <div className="mt-2 w-40 h-56 bg-slate-50 rounded border flex items-center justify-center text-xs text-slate-500">No cover</div>
           )}
@@ -229,8 +240,13 @@ export default function BookForm() {
           <input ref={hiddenBackRef} type="hidden" name="backCoverImageUrl" />
           {uploading ? <div className="text-sm text-slate-600 mt-2">Uploading…</div> : null}
           {backCoverImageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={backCoverImageUrl} alt="Back cover preview" className="mt-2 w-40 h-56 object-cover rounded border" />
+            <Image
+              src={backCoverImageUrl}
+              alt="Back cover preview"
+              className="mt-2 w-40 h-56 object-cover rounded border"
+              width={160}
+              height={224}
+            />
           ) : (
             <div className="mt-2 w-40 h-56 bg-slate-50 rounded border flex items-center justify-center text-xs text-slate-500">No back cover</div>
           )}
