@@ -68,7 +68,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
       .where(inArray(retailer.id, retailerIds));
 
     for (const rr of retailerRows) {
-      retailersMap.set(rr.id, { name: rr.name, logoUrl: rr.logoUrl });
+      retailersMap.set(rr.id, { name: rr.name ?? undefined, logoUrl: rr.logoUrl ?? undefined });
     }
   }
 
