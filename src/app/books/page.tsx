@@ -43,9 +43,56 @@ async function getBooks(): Promise<BookWithLinks[]> {
       retailerId: bookRetailer.retailerId,
       isActive: bookRetailer.isActive,
     })
+    
+.from(bookRetailer)
+    .where(and(eq(bookRetailer.isActive, true), inArray(bookRetailer.bookId, ids)));
+
+  // Fetch retailer rows referenced by those links
+  const retailerIds = [...new Set(
+    (await db
+      .select({ retailerId: bookRetailer.retailerId })
+      .from(bookRetailer)
+      .where(inArray(bookRetailer.bookId, ids))
+    ).map((r: any) => r.retailerId)
+  )];
+
+  const retailersMap = new Map<number, { name?: string; logoUrl?: string }>();
+  if (retailerIds.length > 0) {
+    const retailerRows = await db
+      .select({
+        id: retailer.id,
+        name: retailer.name,
+        logoUrl: retailer.logoUrl,
+      })
+      .from(retailer)
+      .where(inArray(retailer.id, retailerIds));
+
+    for (const rr of retailerRows) {
+      retailersMap.set(rr.id, { name: rr.name, logoUrl: rr.logoUrl });
+    }
+  }
+
+  // Build links array enriched with retailer data
+  // We re-query the linksRows (active + inArray) so we have the link rows
+  const linksRows = await db
+    .select({
+      bookId: bookRetailer.bookId,
+      url: bookRetailer.url,
+      retailerId: bookRetailer.retailerId,
+      isActive: bookRetailer.isActive,
+    })
     .from(bookRetailer)
-    .where(and(eq(bookRetailer.isActive, true), inArray(bookRetailer.bookId, ids)))
-    .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
+    .where(and(eq(bookRetailer.isActive, true), inArray(bookRetailer.bookId, ids)));
+
+  const links = linksRows.map((lr: any) => ({
+    bookId: lr.bookId,
+    url: lr.url,
+    retailerName: retailersMap.get(lr.retailerId)?.name ?? '',
+    retailerLogo: retailersMap.get(lr.retailerId)?.logoUrl ?? null,
+    isActive: lr.isActive,
+    retailerId: lr.retailerId,
+  }));
+
 const linksByBook = new Map<number, { retailer: string; url: string }[]>();
   for (const l of links) {
     const arr = linksByBook.get(l.bookId) ?? [];
