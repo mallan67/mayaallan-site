@@ -29,7 +29,7 @@ export async function GET() {
       seoDescription: book.seoDescription,
       createdAt: book.createdAt,
       updatedAt: book.updatedAt
-    }) . ".from(book)".limit(50);
+    }).from(book).limit(50);
     return NextResponse.json(rows);
   } catch (err: any) {
     console.error("GET /api/books error:", err);

@@ -46,7 +46,7 @@ export async function GET() {
       seoDescription: book.seoDescription,
       createdAt: book.createdAt,
       updatedAt: book.updatedAt
-    }) . ".from(book)".limit(200);
+    }).from(book).limit(200);
   return NextResponse.json({ ok: true, data: rows });
 }
 
