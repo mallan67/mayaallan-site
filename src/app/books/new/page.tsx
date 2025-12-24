@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic"; // Next 14: prevents static prerender, runs at request time
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 import { book } from "@/db/schema";
