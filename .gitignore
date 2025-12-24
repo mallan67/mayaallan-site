@@ -34,3 +34,4 @@ src/db/schema.ts.bak*
 .env.development.local
 README.md.bak
 rotate-db-password.sh
+.env.local
