@@ -1,148 +1,69 @@
 export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Optional: no caching
-import { eq } from "drizzle-orm";
-import React from "react";
-import { notFound } from "next/navigation";
 
-import { book, bookRetailer, retailer } from "@/db/schema";
+import { notFound } from 'next/navigation';
+import { db } from '@/db'; // or '@/lib/db'
+import { book, bookRetailerLink, retailer } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
-
-type Props = { params: { slug: string } };
-
-export default async function BookPage({ params: { slug } }: Props) {
-  // If no DB configured, render a safe fallback so build/prerendering succeeds.
-  if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL) {
-    return (
-      <main style={{ maxWidth: 900, margin: "2rem auto", padding: 20 }}>
-        <h1>Book</h1>
-        <p>Book data is not available because the database is not configured.</p>
-        <p>Slug: <strong>{slug}</strong></p>
-      </main>
-    );
-  }
-
-  // Dynamically import DB only at runtime when DB config is present
-  const { db } = await import('@/lib/db');
-  // Fetch the book by slug
-  const rows = await db
-    .select({
-      id: book.id,
-      slug: book.slug,
-      title: book.title,
-      shortDescription: book.shortDescription,
-      longDescription: book.longDescription,
-      coverImageUrl: book.coverImageUrl,
-      backCoverImageUrl: book.backCoverImageUrl,
-      tags: book.tags,
-      isPublished: book.isPublished,
-      comingSoon: book.comingSoon,
-    })
-    .from(book)
-    .where(eq(book.slug, slug))
-    .limit(1);
-
-  const b = (rows as any[])[0];
-  if (!b) {
-    notFound();
-  }
-
-  // Fetch retailer links for the book
-  const links = await db
-    .select({
-      url: bookRetailer.url,
-      isActive: bookRetailer.isActive,
-      retailerId: retailer.id,
-      retailerName: retailer.name,
-      retailerLogo: retailer.logoUrl,
-    })
-    .from(bookRetailer)
-    .innerJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
-    .where(eq(bookRetailer.bookId, b.id))
-    .orderBy(retailer.name);
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const image = b.coverImageUrl || b.backCoverImageUrl || `${siteUrl}/og-default.png`;
-  const pageUrl = `${siteUrl}/books/${encodeURIComponent(String(b.slug))}`;
-
-  // JSON-LD structured data for Google
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    name: b.title,
-    image,
-    description: b.shortDescription || b.longDescription || "",
-    url: pageUrl,
-    offers: (links || [])
-      .filter((l: any) => l.isActive)
-      .map((l: any) => ({
-        "@type": "Offer",
-        url: l.url,
-        seller: { "@type": "Organization", name: l.retailerName },
-      })),
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const b = await db.query.book.findFirst({
+    where: eq(book.slug, params.slug),
+  });
+  return {
+    title: b?.title || 'Book Not Found',
+    description: b?.short_description || '',
   };
+}
+
+export default async function BookPage({ params }: { params: { slug: string } }) {
+  const b = await db.query.book.findFirst({
+    where: eq(book.slug, params.slug),
+    with: {
+      retailerLinks: {
+        with: { retailer: true },
+      },
+    },
+  });
+
+  if (!b) notFound();
 
   return (
-    <main style={{ maxWidth: 900, margin: "2rem auto", padding: 20, fontFamily: "system-ui" }}>
-      <h1 style={{ marginBottom: 12 }}>{b.title}</h1>
-
-      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
-        <div style={{ minWidth: 260 }}>
-          <img
-            src={image}
-            alt={`${b.title} cover`}
-            style={{ width: 260, height: "auto", objectFit: "cover", borderRadius: 6 }}
-            width={260}
-          />
-        </div>
-
-        <div style={{ flex: 1 }}>
-          {b.shortDescription ? <p>{b.shortDescription}</p> : null}
-
-          {b.tags && Array.isArray(b.tags) && b.tags.length > 0 && (
-            <p>
-              <strong>Tags:</strong>{" "}
-              {b.tags.map((t: string, i: number) => (
-                <span key={i} style={{ marginRight: 8 }}>
-                  #{t}
-                </span>
-              ))}
-            </p>
-          )}
-
-          <h3>Buy / Retailers</h3>
-          <ul>
-            {(!links || links.length === 0) && <li>No retailer links published yet.</li>}
-            {links.map((l: any) => (
-              <li key={`${l.retailerId}-${l.url}`}>
-                <a href={l.url} target="_blank" rel="noopener noreferrer">
-                  {l.retailerName}
-                </a>
-                {l.retailerLogo ? (
-                  <img
-                    src={l.retailerLogo}
-                    alt={`${l.retailerName} logo`}
-                    style={{ height: 22, marginLeft: 8, verticalAlign: "middle" }}
-                  />
-                ) : null}
-                {!l.isActive ? <em style={{ marginLeft: 8 }}> (inactive)</em> : null}
-              </li>
-            ))}
-          </ul>
-
-          {b.longDescription ? (
-            <div style={{ marginTop: 18 }}>
-              <h4>About this book</h4>
-              <p>{b.longDescription}</p>
-            </div>
-          ) : null}
-        </div>
-      </div>
+    <main className="max-w-4xl mx-auto p-8">
+      <h1 className="text-4xl font-bold mb-4">{b.title}</h1>
+      {b.subtitle_1 && <p className="text-2xl mb-6">{b.subtitle_1}</p>}
+      
+      <img src={b.cover_image_url || '/placeholder-cover.jpg'} alt={b.title} className="w-full max-w-md mb-8" />
+      
+      <p className="mb-8">{b.long_description || b.short_description}</p>
+      
+      {b.coming_soon && <p className="text-red-600 font-bold mb-4">Coming Soon – December 2025</p>}
+      
+      <h2 className="text-2xl font-bold mb-4">Buy Now</h2>
+      <ul className="space-y-4">
+        {b.retailerLinks.map((link) => (
+          <li key={link.id}>
+            <a href={link.url} target="_blank" rel="noopener" className="btn-primary">
+              Buy on {link.retailer.name}
+            </a>
+          </li>
+        ))}
+      </ul>
 
       {/* JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Book",
+        name: b.title,
+        author: { "@type": "Person", name: "Maya Allan" },
+        description: b.short_description,
+        image: b.cover_image_url,
+        isbn: b.isbn || undefined,
+        offers: b.retailerLinks.map(link => ({
+          "@type": "Offer",
+          url: link.url,
+          seller: { "@type": "Organization", name: link.retailer.name },
+        })),
+      }) }} />
     </main>
   );
 }
