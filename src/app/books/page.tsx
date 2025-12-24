@@ -74,15 +74,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
 
   // Build links array enriched with retailer data
   // We re-query the linksRows (active + inArray) so we have the link rows
-  const linksRows = await db
-    .select({
-      bookId: bookRetailer.bookId,
-      url: bookRetailer.url,
-      retailerId: bookRetailer.retailerId,
-      isActive: bookRetailer.isActive,
-    })
-    .from(bookRetailer)
-    .where(and(eq(bookRetailer.isActive, true), inArray(bookRetailer.bookId, ids)));
+  
 
   const links = linksRows.map((lr: any) => ({
     bookId: lr.bookId,
