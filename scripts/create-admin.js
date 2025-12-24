@@ -1,33 +1,33 @@
-/**
- * scripts/create-admin.js
- * Usage:
- *   POSTGRES_URL=... ADMIN_EMAIL=you@domain.com ADMIN_PASSWORD=StrongPass node scripts/create-admin.js
- */
-const postgres = require("postgres");
-const bcrypt = require("bcryptjs");
+// scripts/create-admin.js
+const postgres = require('postgres');
+const bcrypt = require('bcryptjs');
 
-const url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
-if (!url) {
-  console.error("Set POSTGRES_URL or DATABASE_URL first.");
+const POSTGRES_URL = process.env.POSTGRES_URL;
+if (!POSTGRES_URL) {
+  console.error('Set POSTGRES_URL env var first, e.g.: export POSTGRES_URL="postgres://postgres:postgres@127.0.0.1:5432/postgres"');
   process.exit(1);
 }
 
-const email = process.env.ADMIN_EMAIL || "admin@example.com";
-const password = process.env.ADMIN_PASSWORD || "ChangeMe123!";
+const email = process.argv[2] || 'admin@example.com';
+const password = process.argv[3] || 'MyStrongPass1!';
 
 (async () => {
-  const sql = postgres(url, { prepare: false });
+  const sql = postgres(POSTGRES_URL, { prepare: false });
+  const hash = bcrypt.hashSync(password, 10);
+
   try {
-    const hash = await bcrypt.hash(password, 12);
-    console.log("Upserting admin:", email);
+    // Adjust table/columns if your schema differs. This follows the repo's admin_user table.
     await sql`
-      INSERT INTO admin_user (email, password_hash, display_name, is_active, created_at)
-      VALUES (${email}, ${hash}, ${"Admin"}, true, now())
-      ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash, display_name = EXCLUDED.display_name, is_active = EXCLUDED.is_active, updated_at = now();
+      INSERT INTO admin_user (email, password_hash, display_name, created_at, updated_at, is_active)
+      VALUES (${email}, ${hash}, 'Admin', now(), now(), true)
+      ON CONFLICT (email) DO UPDATE
+      SET password_hash = EXCLUDED.password_hash, updated_at = now();
     `;
-    console.log("Admin upserted. Credentials:", { email, password });
+    console.log(`Admin user ensured: ${email} (password: ${password})`);
+    process.exit(0);
   } catch (err) {
-    console.error("Error creating admin:", err);
+    console.error('Failed to create admin user:', err);
+    process.exit(1);
   } finally {
     await sql.end();
   }
