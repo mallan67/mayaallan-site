@@ -1,20 +1,11 @@
 {
-  "name": "mayaallan-codespace",
-  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:20",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
   "features": {
-    "ghcr.io/devcontainers/features/git-lfs:1": {}
-  },
-  "forwardPorts": [
-    3000
-  ],
-  "remoteEnv": {
-    "OPENAI_API_KEY": "${codespaces:secrets.OPENAI_API_KEY}"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode.vscode-typescript-next"
-      ]
+    "ghcr.io/devcontainers/features/postgres:1": {
+      "version": "16",
+      "password": "testpass"
     }
-  }
+  },
+  "postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm add -D tsx",
+  "forwardPorts": [3000]
 }
