@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: src/app/books/page.tsx
+@@
+-  // Build links array enriched with retailer data
+-  // We re-query the linksRows (active + inArray) so we have the link rows
+-  const linksRows = await db
+-    .select({
+-      bookId: bookRetailer.bookId,
+-      url: bookRetailer.url,
+-      retailerId: bookRetailer.retailerId,
+-      isActive: bookRetailer.isActive,
+-    })
+-    .from(bookRetailer)
+-    .where(and(eq(bookRetailer.isActive, true), inArray(bookRetailer.bookId, ids)));
++  // Build links array enriched with retailer data. Reuse linksRows from earlier query
+*** End Patch
