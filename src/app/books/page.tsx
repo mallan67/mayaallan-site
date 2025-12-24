@@ -1,7 +1,6 @@
 // src/app/books/page.tsx
 import { eq, desc , inArray } from "drizzle-orm";
 import Link from "next/link";
-import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
 
 
@@ -15,6 +14,10 @@ type BookWithLinks = {
 };
 
 async function getBooks(): Promise<BookWithLinks[]> {
+  if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL) {
+    return [];
+  }
+  const { db } = await import('@/lib/db');
   const rows = await db
     .select({
       id: book.id,
