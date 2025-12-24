@@ -1,11 +1,7 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
-  "features": {
-    "ghcr.io/devcontainers/features/postgres:1": {
-      "version": "16",
-      "password": "testpass"
-    }
-  },
-  "postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm add -D tsx",
-  "forwardPorts": [3000]
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/mayaallan-site",
+  "forwardPorts": [3000],
+  "postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm add -D tsx"
 }

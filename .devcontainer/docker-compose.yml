@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm
+    command: sleep infinity
+    volumes:
+      - ..:/workspaces/mayaallan-site:cached
+    environment:
+      DATABASE_URL: postgres://postgres:testpass@db:5432/postgres
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
