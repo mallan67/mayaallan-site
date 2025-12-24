@@ -1,0 +1,34 @@
+*** Begin Patch
+*** Update File: src/app/books/page.tsx
+@@
+-  const rows = await db
+-    .select({
+-      id: book.id,
+-      title: book.title,
+-      slug: book.slug,
+-      comingSoon: book.comingSoon,
+-      allowDirectSale: book.allowDirectSale, // schema name is directSaleEnabled
+-    })
+-    .from(book)
+-    .where(eq(book.isPublished, true))
+-    .orderBy(desc(book.createdAt)) // note the parentheses
+-    .limit(20);
++  const rows = (await db
++    .select({
++      id: book.id,
++      title: book.title,
++      slug: book.slug,
++      comingSoon: book.comingSoon,
++      allowDirectSale: book.allowDirectSale,
++    })
++    .from(book)
++    .where(eq(book.isPublished, true))
++    .orderBy(desc(book.createdAt))
++    .limit(20)) as Array<{
++    id: number;
++    title: string;
++    slug: string;
++    comingSoon: boolean | null;
++    allowDirectSale: boolean | null;
++  }>;
+*** End Patch

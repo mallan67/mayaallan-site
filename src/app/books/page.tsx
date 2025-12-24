@@ -1,8 +1,9 @@
 // src/app/books/page.tsx
+import { eq, desc , inArray } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
-import { eq } from "drizzle-orm";
+
 
 type BookWithLinks = {
   id: number;
@@ -20,14 +21,14 @@ async function getBooks(): Promise<BookWithLinks[]> {
       title: book.title,
       slug: book.slug,
       comingSoon: book.comingSoon,
-      allowDirectSale: book.directSaleEnabled, // schema name is directSaleEnabled
+      allowDirectSale: book.allowDirectSale, // schema name is directSaleEnabled
     })
     .from(book)
     .where(eq(book.isPublished, true))
-    .orderBy(book.createdAt.desc()) // note the parentheses
+    .orderBy(desc(book.createdAt)) // note the parentheses
     .limit(20);
 
-  const ids = rows.map((r) => r.id);
+  const ids = rows.map((r: any) => r.id);
   if (ids.length === 0) return [];
 
   const links = await db
@@ -39,9 +40,9 @@ async function getBooks(): Promise<BookWithLinks[]> {
     })
     .from(bookRetailer)
     .leftJoin(retailer, eq(retailer.id, bookRetailer.retailerId))
-    .where(bookRetailer.bookId.in(ids))
+    .where(inArray(bookRetailer.bookId, ids))
     .where(eq(bookRetailer.isActive, true))
-    .where(eq(retailer.isActive, true));
+;
 
   const linksByBook = new Map<number, { retailer: string; url: string }[]>();
   for (const l of links) {
@@ -50,7 +51,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
     linksByBook.set(l.bookId, arr);
   }
 
-  return rows.map((r) => ({
+  return rows.map((r: any) => ({
     id: r.id,
     title: r.title,
     slug: r.slug,

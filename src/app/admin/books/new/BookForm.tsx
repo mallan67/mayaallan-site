@@ -1,9 +1,3 @@
-# 1) Make sure you're on the correct branch
-git checkout cleanup/streamline-app
-
-# 2) Ensure directory exists and replace BookForm exactly
-mkdir -p src/app/admin/books/new
-cat > src/app/admin/books/new/BookForm.tsx <<'EOF'
 'use client';
 
 import React, { useRef, useState } from 'react';
@@ -321,9 +315,3 @@ function RetailerEditor({ retailers, setRetailers }: { retailers: Retailer[]; se
     </div>
   );
 }
-EOF
-
-# 3) Add and commit
-git add src/app/admin/books/new/BookForm.tsx
-git commit -m "feat(admin): add BookForm with upload integration (client)"
-git push origin cleanup/streamline-app

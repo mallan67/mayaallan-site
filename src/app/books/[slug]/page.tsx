@@ -1,9 +1,10 @@
+import { eq } from "drizzle-orm";
 import React from "react";
 import { notFound } from "next/navigation";
 
 import { db } from "@/db";
 import { book, bookRetailer, retailer } from "@/db/schema";
-import { eq } from "drizzle-orm";
+
 
 type Props = { params: { slug: string } };
 

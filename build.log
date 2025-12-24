@@ -1,0 +1,117 @@
+
+> mayaallan-site@1.0.0 build
+> next build
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/19) ...
+   Generating static pages (4/19) 
+   Generating static pages (9/19) 
+P [Error]: Failed query: select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1
+params: 50
+    at ex.queryWithCache (/workspaces/mayaallan-site/.next/server/chunks/998.js:8:36374)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /workspaces/mayaallan-site/.next/server/chunks/998.js:8:38957
+    at async o (/workspaces/mayaallan-site/.next/server/app/books/new/page.js:1:2424) {
+  query: 'select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1',
+  params: [ 50 ],
+  cause: u: column "seo" does not exist
+      at V (/workspaces/mayaallan-site/.next/server/chunks/998.js:11:2302)
+      at /workspaces/mayaallan-site/.next/server/chunks/998.js:11:3344
+      at TLSSocket.ek (/workspaces/mayaallan-site/.next/server/chunks/998.js:11:3349)
+      at TLSSocket.emit (node:events:524:28)
+      at addChunk (node:internal/streams/readable:561:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+      at Readable.push (node:internal/streams/readable:392:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:191:23)
+      at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42703',
+    position: '254',
+    file: 'parse_relation.c',
+    line: '3716',
+    routine: 'errorMissingColumn'
+  },
+  digest: '1433943495'
+}
+P [Error]: Failed query: select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1
+params: 50
+    at ex.queryWithCache (/workspaces/mayaallan-site/.next/server/chunks/998.js:8:36374)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /workspaces/mayaallan-site/.next/server/chunks/998.js:8:38957
+    at async o (/workspaces/mayaallan-site/.next/server/app/books/new/page.js:1:2424) {
+  query: 'select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1',
+  params: [ 50 ],
+  cause: u: column "seo" does not exist
+      at V (/workspaces/mayaallan-site/.next/server/chunks/998.js:11:2302)
+      at /workspaces/mayaallan-site/.next/server/chunks/998.js:11:3344
+      at TLSSocket.ek (/workspaces/mayaallan-site/.next/server/chunks/998.js:11:3349)
+      at TLSSocket.emit (node:events:524:28)
+      at addChunk (node:internal/streams/readable:561:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+      at Readable.push (node:internal/streams/readable:392:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:191:23)
+      at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42703',
+    position: '254',
+    file: 'parse_relation.c',
+    line: '3716',
+    routine: 'errorMissingColumn'
+  },
+  digest: '1433943495'
+}
+P [Error]: Failed query: select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1
+params: 50
+    at ex.queryWithCache (/workspaces/mayaallan-site/.next/server/chunks/998.js:8:36374)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /workspaces/mayaallan-site/.next/server/chunks/998.js:8:38957
+    at async o (/workspaces/mayaallan-site/.next/server/app/books/new/page.js:1:2424) {
+  query: 'select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1',
+  params: [ 50 ],
+  cause: u: column "seo" does not exist
+      at V (/workspaces/mayaallan-site/.next/server/chunks/998.js:11:2302)
+      at /workspaces/mayaallan-site/.next/server/chunks/998.js:11:3344
+      at TLSSocket.ek (/workspaces/mayaallan-site/.next/server/chunks/998.js:11:3349)
+      at TLSSocket.emit (node:events:524:28)
+      at addChunk (node:internal/streams/readable:561:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+      at Readable.push (node:internal/streams/readable:392:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:191:23)
+      at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42703',
+    position: '254',
+    file: 'parse_relation.c',
+    line: '3716',
+    routine: 'errorMissingColumn'
+  },
+  digest: '1433943495'
+}
+
+Error occurred prerendering page "/books/new". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: Failed query: select "id", "slug", "title", "subtitle_1", "subtitle_2", "tags", "isbn", "short_description", "long_description", "cover_image_url", "back_cover_image_url", "direct_sale_enabled", "stripe_product_id", "paypal_button_id", "is_published", "coming_soon", "seo", "seo_title", "seo_description", "created_at", "updated_at" from "book" order by "book"."created_at" desc limit $1
+params: 50
+    at ex.queryWithCache (/workspaces/mayaallan-site/.next/server/chunks/998.js:8:36374)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /workspaces/mayaallan-site/.next/server/chunks/998.js:8:38957
+    at async o (/workspaces/mayaallan-site/.next/server/app/books/new/page.js:1:2424)
+   Generating static pages (14/19) 
+ ✓ Generating static pages (19/19)
+
+> Export encountered errors on following paths:
+	/books/new/page: /books/new
