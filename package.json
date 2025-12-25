@@ -1,49 +1,51 @@
 {
   "name": "mayaallan-site",
-  "version": "1.0.0",
+  "version": "3.0.0",
+  "description": "Maya Allan Author Site - Complete Backend with Payments & Email",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --config eslint.config.cjs --ext .js,.jsx,.ts,.tsx .",
-    "drizzle:generate": "drizzle-kit generate",
-    "drizzle:migrate": "drizzle-kit migrate"
+    "lint": "next lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop",
+    "create-admin": "tsx scripts/create-admin.ts",
+    "clean": "rm -rf .next node_modules pnpm-lock.yaml",
+    "fresh-install": "pnpm clean && pnpm install"
   },
   "dependencies": {
-    "@vercel/blob": "^0.27.0",
-    "bcryptjs": "^3.0.3",
-    "drizzle-orm": "^0.44.0",
-    "iron-session": "^8.0.4",
-    "jsonwebtoken": "^9.0.3",
-    "next": "^14.2.35",
-    "postgres": "^3.4.7",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "zod": "^4.2.1"
+    "next": "^14.2.13",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "drizzle-orm": "^0.36.1",
+    "@vercel/postgres": "^0.10.0",
+    "@vercel/blob": "^0.24.1",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.9.3",
+    "stripe": "^17.3.1",
+    "@stripe/stripe-js": "^4.8.0",
+    "resend": "^4.0.1"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20.14.10",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^8",
-    "@typescript-eslint/parser": "^8",
-    "autoprefixer": "^10.4.19",
-    "drizzle-kit": "^0.31.8",
-    "esbuild": "^0.25.12",
-    "eslint": "^9",
-    "eslint-config-next": "^16",
-    "eslint-plugin-import": "^2",
-    "eslint-plugin-jsx-a11y": "^6",
-    "eslint-plugin-react": "^7",
-    "eslint-plugin-react-hooks": "^7",
-    "pg": "^8.16.3",
-    "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.7",
-    "typescript": "^5.5.4"
+    "@types/node": "^22",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/bcryptjs": "^2.4.6",
+    "typescript": "^5",
+    "drizzle-kit": "^0.28.1",
+    "tsx": "^4.19.1",
+    "tailwindcss": "^3.4.14",
+    "postcss": "^8",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.13"
   },
-  "overrides": {
-    "esbuild": "^0.25.12"
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   }
 }
