@@ -20,7 +20,7 @@ async function getBooks(): Promise<BookWithLinks[]> {
       title: book.title,
       slug: book.slug,
       comingSoon: book.comingSoon,
-      allowDirectSale: book.directSaleEnabled, // schema name is directSaleEnabled
+      allowDirectSale: book.allowDirectSale, // schema name is directSaleEnabled
     })
     .from(book)
     .where(eq(book.isPublished, true))
